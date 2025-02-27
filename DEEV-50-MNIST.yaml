@@ -2,7 +2,7 @@ version: '3'
 services:
 
   server:
-    image: 'acspfl-server:latest'
+    image: 'acsp-fl-server:latest'
     container_name: fl_server
     environment:
       - SERVER_IP=0.0.0.0:9999
@@ -26,7 +26,7 @@ services:
     
 
   client-0:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=0
@@ -51,14 +51,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.9926155898605122"
+          cpus: "0.36776416454226524"
       placement:
         constraints:
           - node.role==worker
           
 
   client-1:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=1
@@ -83,14 +83,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.341189903865914"
+          cpus: "4.561870514115558"
       placement:
         constraints:
           - node.role==worker
           
 
   client-2:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=2
@@ -115,14 +115,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.078578807430474"
+          cpus: "4.459478576145508"
       placement:
         constraints:
           - node.role==worker
           
 
   client-3:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=3
@@ -147,14 +147,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.263271851309548"
+          cpus: "4.6518170610853415"
       placement:
         constraints:
           - node.role==worker
           
 
   client-4:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=4
@@ -179,14 +179,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.0332858835969922"
+          cpus: "0.9902458254837564"
       placement:
         constraints:
           - node.role==worker
           
 
   client-5:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=5
@@ -211,14 +211,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.9594965282767545"
+          cpus: "0.3493856906330842"
       placement:
         constraints:
           - node.role==worker
           
 
   client-6:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=6
@@ -243,14 +243,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.8918377276390115"
+          cpus: "0.3343425248010208"
       placement:
         constraints:
           - node.role==worker
           
 
   client-7:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=7
@@ -275,14 +275,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.09746461825778749"
+          cpus: "4.893145153570129"
       placement:
         constraints:
           - node.role==worker
           
 
   client-8:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=8
@@ -307,14 +307,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.514874786755462"
+          cpus: "5.566232938468452"
       placement:
         constraints:
           - node.role==worker
           
 
   client-9:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=9
@@ -339,14 +339,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.5108314178558493"
+          cpus: "1.0482073004646095"
       placement:
         constraints:
           - node.role==worker
           
 
   client-10:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=10
@@ -371,14 +371,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.991060059838509"
+          cpus: "4.916374582821428"
       placement:
         constraints:
           - node.role==worker
           
 
   client-11:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=11
@@ -403,14 +403,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.571044770408786"
+          cpus: "4.637589929804766"
       placement:
         constraints:
           - node.role==worker
           
 
   client-12:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=12
@@ -435,14 +435,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.086772160130903"
+          cpus: "4.089439057350954"
       placement:
         constraints:
           - node.role==worker
           
 
   client-13:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=13
@@ -467,14 +467,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.23578694415116197"
+          cpus: "3.9803207145521475"
       placement:
         constraints:
           - node.role==worker
           
 
   client-14:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=14
@@ -499,14 +499,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.928517345166506"
+          cpus: "0.6989048827201881"
       placement:
         constraints:
           - node.role==worker
           
 
   client-15:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=15
@@ -531,14 +531,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.8529878291654753"
+          cpus: "3.407821825608937"
       placement:
         constraints:
           - node.role==worker
           
 
   client-16:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=16
@@ -563,14 +563,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.324486822240994"
+          cpus: "5.294060487512486"
       placement:
         constraints:
           - node.role==worker
           
 
   client-17:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=17
@@ -595,14 +595,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.936409408267176"
+          cpus: "3.399955067627962"
       placement:
         constraints:
           - node.role==worker
           
 
   client-18:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=18
@@ -627,14 +627,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.6416294475838102"
+          cpus: "3.431929279912799"
       placement:
         constraints:
           - node.role==worker
           
 
   client-19:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=19
@@ -659,14 +659,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.6999732126093395"
+          cpus: "2.8919827521627233"
       placement:
         constraints:
           - node.role==worker
           
 
   client-20:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=20
@@ -691,14 +691,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.421340684615563"
+          cpus: "2.720372517591042"
       placement:
         constraints:
           - node.role==worker
           
 
   client-21:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=21
@@ -723,14 +723,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.6983278123285395"
+          cpus: "1.7607992093078824"
       placement:
         constraints:
           - node.role==worker
           
 
   client-22:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=22
@@ -755,14 +755,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.890409604860059"
+          cpus: "0.612389304129337"
       placement:
         constraints:
           - node.role==worker
           
 
   client-23:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=23
@@ -787,14 +787,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.123587513080874"
+          cpus: "1.2451932238567625"
       placement:
         constraints:
           - node.role==worker
           
 
   client-24:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=24
@@ -819,14 +819,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.1969736127842125"
+          cpus: "3.88241207068088"
       placement:
         constraints:
           - node.role==worker
           
 
   client-25:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=25
@@ -851,14 +851,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.813091918670397"
+          cpus: "4.155818647025404"
       placement:
         constraints:
           - node.role==worker
           
 
   client-26:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=26
@@ -883,14 +883,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.1495180269520104"
+          cpus: "5.1080039744322985"
       placement:
         constraints:
           - node.role==worker
           
 
   client-27:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=27
@@ -915,14 +915,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.39070252649089776"
+          cpus: "4.457978874668257"
       placement:
         constraints:
           - node.role==worker
           
 
   client-28:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=28
@@ -947,14 +947,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.266689430449644"
+          cpus: "1.7572276762755576"
       placement:
         constraints:
           - node.role==worker
           
 
   client-29:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=29
@@ -979,14 +979,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.096748151559688"
+          cpus: "2.6307243892868284"
       placement:
         constraints:
           - node.role==worker
           
 
   client-30:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=30
@@ -1011,14 +1011,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.66400719155254"
+          cpus: "1.461231138833879"
       placement:
         constraints:
           - node.role==worker
           
 
   client-31:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=31
@@ -1043,14 +1043,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.641559561977898"
+          cpus: "2.5115993613308394"
       placement:
         constraints:
           - node.role==worker
           
 
   client-32:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=32
@@ -1075,14 +1075,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.244525045990345"
+          cpus: "5.597049668506154"
       placement:
         constraints:
           - node.role==worker
           
 
   client-33:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=33
@@ -1107,14 +1107,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.549011634301033"
+          cpus: "0.842990652028467"
       placement:
         constraints:
           - node.role==worker
           
 
   client-34:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=34
@@ -1139,14 +1139,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.240257851044442"
+          cpus: "0.9388364635752073"
       placement:
         constraints:
           - node.role==worker
           
 
   client-35:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=35
@@ -1171,14 +1171,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.412975804347319"
+          cpus: "3.077191887938575"
       placement:
         constraints:
           - node.role==worker
           
 
   client-36:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=36
@@ -1203,14 +1203,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.946246421396894"
+          cpus: "3.1987408278963083"
       placement:
         constraints:
           - node.role==worker
           
 
   client-37:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=37
@@ -1235,14 +1235,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.9754993806675192"
+          cpus: "3.5591226363838655"
       placement:
         constraints:
           - node.role==worker
           
 
   client-38:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=38
@@ -1267,14 +1267,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.106611301853379"
+          cpus: "1.665260551814685"
       placement:
         constraints:
           - node.role==worker
           
 
   client-39:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=39
@@ -1299,14 +1299,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.660079397493494"
+          cpus: "3.8873330689818726"
       placement:
         constraints:
           - node.role==worker
           
 
   client-40:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=40
@@ -1331,14 +1331,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.44453984592090007"
+          cpus: "1.923059888153097"
       placement:
         constraints:
           - node.role==worker
           
 
   client-41:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=41
@@ -1363,14 +1363,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.1040589184572331"
+          cpus: "0.7763899294243864"
       placement:
         constraints:
           - node.role==worker
           
 
   client-42:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=42
@@ -1395,14 +1395,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.4287436153095987"
+          cpus: "0.3423048463603465"
       placement:
         constraints:
           - node.role==worker
           
 
   client-43:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=43
@@ -1427,14 +1427,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.058134465638249165"
+          cpus: "4.18689750753765"
       placement:
         constraints:
           - node.role==worker
           
 
   client-44:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=44
@@ -1459,14 +1459,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.1035674447049555"
+          cpus: "5.322949775566581"
       placement:
         constraints:
           - node.role==worker
           
 
   client-45:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=45
@@ -1491,14 +1491,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.661185750263815"
+          cpus: "3.766275401189414"
       placement:
         constraints:
           - node.role==worker
           
 
   client-46:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=46
@@ -1523,14 +1523,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.723961768224583"
+          cpus: "3.9004326662243565"
       placement:
         constraints:
           - node.role==worker
           
 
   client-47:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=47
@@ -1555,14 +1555,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.537953290557441"
+          cpus: "5.749441437386332"
       placement:
         constraints:
           - node.role==worker
           
 
   client-48:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=48
@@ -1587,14 +1587,14 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.053259239401706"
+          cpus: "5.288186323505161"
       placement:
         constraints:
           - node.role==worker
           
 
   client-49:
-    image: 'acspfl-client:latest'
+    image: 'acsp-fl-client:latest'
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=49
@@ -1619,7 +1619,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.79356398877619"
+          cpus: "0.06152519133208582"
       placement:
         constraints:
           - node.role==worker

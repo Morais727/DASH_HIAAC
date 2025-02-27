@@ -5,7 +5,7 @@ import random
 
 def add_server_info(clients, rounds, algorithm, solution, dataset, model, poc, decay):
     server_str = f"  server:\n\
-    image: 'acspfl-server:latest'\n\
+    image: 'acsp-fl-server:latest'\n\
     container_name: fl_server\n\
     environment:\n\
       - SERVER_IP=0.0.0.0:9999\n\
@@ -34,7 +34,7 @@ def add_server_info(clients, rounds, algorithm, solution, dataset, model, poc, d
 def add_client_info(client, model, client_selection, local_epochs, solution, algorithm,
                     dataset, poc, decay, transmittion_threshold, personalization, shared_layers):
     client_str = f"  client-{client}:\n\
-    image: 'acspfl-client:latest'\n\
+    image: 'acsp-fl-client:latest'\n\
     environment:\n\
       - SERVER_IP=fl_server:9999\n\
       - CLIENT_ID={client}\n\
