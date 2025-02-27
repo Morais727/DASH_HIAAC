@@ -30,6 +30,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=0
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -51,7 +52,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.36776416454226524"
+          cpus: "2.469453845569766"
       placement:
         constraints:
           - node.role==worker
@@ -62,6 +63,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=1
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -83,7 +85,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.561870514115558"
+          cpus: "5.678948720987657"
       placement:
         constraints:
           - node.role==worker
@@ -94,6 +96,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=2
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -115,7 +118,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.459478576145508"
+          cpus: "3.6171137341853274"
       placement:
         constraints:
           - node.role==worker
@@ -126,6 +129,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=3
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -147,7 +151,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.6518170610853415"
+          cpus: "2.762530308725213"
       placement:
         constraints:
           - node.role==worker
@@ -158,6 +162,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=4
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -179,7 +184,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.9902458254837564"
+          cpus: "0.08949047295932204"
       placement:
         constraints:
           - node.role==worker
@@ -190,6 +195,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=5
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -211,7 +217,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.3493856906330842"
+          cpus: "3.7334356410793244"
       placement:
         constraints:
           - node.role==worker
@@ -222,6 +228,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=6
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -243,7 +250,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.3343425248010208"
+          cpus: "2.293987197319451"
       placement:
         constraints:
           - node.role==worker
@@ -254,6 +261,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=7
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -275,7 +283,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.893145153570129"
+          cpus: "0.6186967903085422"
       placement:
         constraints:
           - node.role==worker
@@ -286,6 +294,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=8
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -307,7 +316,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.566232938468452"
+          cpus: "3.6210444717152224"
       placement:
         constraints:
           - node.role==worker
@@ -318,6 +327,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=9
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -339,7 +349,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.0482073004646095"
+          cpus: "0.3882605471029059"
       placement:
         constraints:
           - node.role==worker
@@ -350,6 +360,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=10
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -371,7 +382,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.916374582821428"
+          cpus: "0.1270795300868186"
       placement:
         constraints:
           - node.role==worker
@@ -382,6 +393,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=11
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -403,7 +415,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.637589929804766"
+          cpus: "5.078861442018493"
       placement:
         constraints:
           - node.role==worker
@@ -414,6 +426,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=12
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -435,7 +448,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.089439057350954"
+          cpus: "2.301794861250341"
       placement:
         constraints:
           - node.role==worker
@@ -446,6 +459,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=13
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -467,7 +481,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.9803207145521475"
+          cpus: "2.0713277286278826"
       placement:
         constraints:
           - node.role==worker
@@ -478,6 +492,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=14
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -499,7 +514,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.6989048827201881"
+          cpus: "1.557151503170263"
       placement:
         constraints:
           - node.role==worker
@@ -510,6 +525,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=15
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -531,7 +547,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.407821825608937"
+          cpus: "0.38542012467946696"
       placement:
         constraints:
           - node.role==worker
@@ -542,6 +558,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=16
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -563,7 +580,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.294060487512486"
+          cpus: "3.9347232518949373"
       placement:
         constraints:
           - node.role==worker
@@ -574,6 +591,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=17
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -595,7 +613,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.399955067627962"
+          cpus: "1.5578211261627175"
       placement:
         constraints:
           - node.role==worker
@@ -606,6 +624,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=18
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -627,7 +646,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.431929279912799"
+          cpus: "0.2976335612318428"
       placement:
         constraints:
           - node.role==worker
@@ -638,6 +657,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=19
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -659,7 +679,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.8919827521627233"
+          cpus: "0.7847588632442584"
       placement:
         constraints:
           - node.role==worker
@@ -670,6 +690,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=20
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -691,7 +712,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.720372517591042"
+          cpus: "1.6689477329632394"
       placement:
         constraints:
           - node.role==worker
@@ -702,6 +723,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=21
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -723,7 +745,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.7607992093078824"
+          cpus: "3.7417286126829943"
       placement:
         constraints:
           - node.role==worker
@@ -734,6 +756,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=22
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -755,7 +778,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.612389304129337"
+          cpus: "1.280796466071986"
       placement:
         constraints:
           - node.role==worker
@@ -766,6 +789,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=23
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -787,7 +811,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.2451932238567625"
+          cpus: "4.275372256277699"
       placement:
         constraints:
           - node.role==worker
@@ -798,6 +822,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=24
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -819,7 +844,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.88241207068088"
+          cpus: "4.657762649186679"
       placement:
         constraints:
           - node.role==worker
@@ -830,6 +855,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=25
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -851,7 +877,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.155818647025404"
+          cpus: "4.700018846846721"
       placement:
         constraints:
           - node.role==worker
@@ -862,6 +888,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=26
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -883,7 +910,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.1080039744322985"
+          cpus: "3.7864167674315583"
       placement:
         constraints:
           - node.role==worker
@@ -894,6 +921,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=27
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -915,7 +943,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.457978874668257"
+          cpus: "0.8910875150093821"
       placement:
         constraints:
           - node.role==worker
@@ -926,6 +954,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=28
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -947,7 +976,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.7572276762755576"
+          cpus: "3.6052364327530895"
       placement:
         constraints:
           - node.role==worker
@@ -958,6 +987,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=29
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -979,7 +1009,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.6307243892868284"
+          cpus: "3.9197901833041007"
       placement:
         constraints:
           - node.role==worker
@@ -990,6 +1020,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=30
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1011,7 +1042,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.461231138833879"
+          cpus: "4.1441610049889075"
       placement:
         constraints:
           - node.role==worker
@@ -1022,6 +1053,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=31
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1043,7 +1075,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "2.5115993613308394"
+          cpus: "1.7168595990520696"
       placement:
         constraints:
           - node.role==worker
@@ -1054,6 +1086,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=32
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1075,7 +1108,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.597049668506154"
+          cpus: "2.3403304038247996"
       placement:
         constraints:
           - node.role==worker
@@ -1086,6 +1119,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=33
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1107,7 +1141,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.842990652028467"
+          cpus: "2.766368817894438"
       placement:
         constraints:
           - node.role==worker
@@ -1118,6 +1152,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=34
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1139,7 +1174,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.9388364635752073"
+          cpus: "5.64941963184423"
       placement:
         constraints:
           - node.role==worker
@@ -1150,6 +1185,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=35
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1171,7 +1207,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.077191887938575"
+          cpus: "2.176046455692143"
       placement:
         constraints:
           - node.role==worker
@@ -1182,6 +1218,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=36
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1203,7 +1240,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.1987408278963083"
+          cpus: "3.3191847848874745"
       placement:
         constraints:
           - node.role==worker
@@ -1214,6 +1251,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=37
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1235,7 +1273,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.5591226363838655"
+          cpus: "3.2688194429189856"
       placement:
         constraints:
           - node.role==worker
@@ -1246,6 +1284,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=38
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1267,7 +1306,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.665260551814685"
+          cpus: "0.6860550926995329"
       placement:
         constraints:
           - node.role==worker
@@ -1278,6 +1317,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=39
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1299,7 +1339,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.8873330689818726"
+          cpus: "4.707566698427041"
       placement:
         constraints:
           - node.role==worker
@@ -1310,6 +1350,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=40
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1331,7 +1372,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "1.923059888153097"
+          cpus: "4.746806696068891"
       placement:
         constraints:
           - node.role==worker
@@ -1342,6 +1383,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=41
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1363,7 +1405,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.7763899294243864"
+          cpus: "3.2576154064147245"
       placement:
         constraints:
           - node.role==worker
@@ -1374,6 +1416,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=42
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1395,7 +1438,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.3423048463603465"
+          cpus: "4.655503567418171"
       placement:
         constraints:
           - node.role==worker
@@ -1406,6 +1449,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=43
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1427,7 +1471,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "4.18689750753765"
+          cpus: "5.51895207217145"
       placement:
         constraints:
           - node.role==worker
@@ -1438,6 +1482,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=44
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1459,7 +1504,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.322949775566581"
+          cpus: "2.7423108957587945"
       placement:
         constraints:
           - node.role==worker
@@ -1470,6 +1515,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=45
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1491,7 +1537,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.766275401189414"
+          cpus: "3.5596850897278274"
       placement:
         constraints:
           - node.role==worker
@@ -1502,6 +1548,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=46
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1523,7 +1570,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "3.9004326662243565"
+          cpus: "0.21586369975677971"
       placement:
         constraints:
           - node.role==worker
@@ -1534,6 +1581,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=47
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1555,7 +1603,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.749441437386332"
+          cpus: "1.4684173714568722"
       placement:
         constraints:
           - node.role==worker
@@ -1566,6 +1614,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=48
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1587,7 +1636,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "5.288186323505161"
+          cpus: "5.326519593432576"
       placement:
         constraints:
           - node.role==worker
@@ -1598,6 +1647,7 @@ services:
     environment:
       - SERVER_IP=fl_server:9999
       - CLIENT_ID=49
+      - N_CLIENTS=50
       - MODEL=DNN
       - CLIENT_SELECTION=DEEV
       - LOCAL_EPOCHS=1
@@ -1619,7 +1669,7 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.06152519133208582"
+          cpus: "3.423242873728679"
       placement:
         constraints:
           - node.role==worker

@@ -31,13 +31,14 @@ def add_server_info(clients, rounds, algorithm, solution, dataset, model, poc, d
     return server_str
 
 
-def add_client_info(client, model, client_selection, local_epochs, solution, algorithm,
+def add_client_info(num_clients, id_client, model, client_selection, local_epochs, solution, algorithm,
                     dataset, poc, decay, transmittion_threshold, personalization, shared_layers):
-    client_str = f"  client-{client}:\n\
+    client_str = f"  client-{id_client}:\n\
     image: 'acsp-fl-client:latest'\n\
     environment:\n\
       - SERVER_IP=fl_server:9999\n\
-      - CLIENT_ID={client}\n\
+      - CLIENT_ID={id_client}\n\
+      - N_CLIENTS={num_clients}\n\
       - MODEL={model}\n\
       - CLIENT_SELECTION={client_selection}\n\
       - LOCAL_EPOCHS={local_epochs}\n\
@@ -99,8 +100,8 @@ def main():
 
         dockercompose_file.write(server_str)
 
-        for client in range(args.clients):
-            client_str = add_client_info(client, args.model, args.client_selection, args.local_epochs,
+        for id_client in range(args.clients):
+            client_str = add_client_info(args.clients, id_client, args.model, args.client_selection, args.local_epochs,
                                          args.solution, args.algorithm, args.dataset, args.poc, args.decay,
                                          args.threshold, args.personalization, args.shared_layers)
 

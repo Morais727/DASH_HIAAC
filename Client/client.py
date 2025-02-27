@@ -8,8 +8,8 @@ import os
 import time
 import sys
 
-from Client.dataset_utils import ManageDatasets
-from Client.model_definition import ModelCreation
+from dataset_utils import ManageDatasets
+from model_definition import ModelCreation
 
 
 import warnings
@@ -79,7 +79,13 @@ class FedClient(fl.client.NumPyClient):
 		self.global_model                                    = self.create_model()
 
 	def load_data(self, dataset_name, n_clients):
+		print(f"Carregando dataset {dataset_name} para {n_clients} clientes...")  # Debug
+		if n_clients is None:
+			raise ValueError("ERRO: n_clients está como None antes de chamar select_dataset!")
+
 		return ManageDatasets(self.cid).select_dataset(dataset_name, n_clients, self.non_iid)
+
+
 
 	def create_model(self):
 		input_shape = self.x_train.shape
@@ -225,7 +231,7 @@ def main():
 	
 	client =  FedClient(
 					cid                    = int(os.environ['CLIENT_ID']), 
-					n_clients              = None, 
+					n_clients              = int(os.environ['N_CLIENTS']),
 					model_name             = os.environ['MODEL'], 
 					client_selection       = not os.environ['CLIENT_SELECTION'] == 'False', 
 					epochs                 = int(os.environ['LOCAL_EPOCHS']), 

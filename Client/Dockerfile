@@ -4,7 +4,6 @@ FROM python:3.9-slim
 ADD data ./data
 ADD client.py .
 
-
 ADD dataset_utils.py .
 ADD model_definition.py .
 
