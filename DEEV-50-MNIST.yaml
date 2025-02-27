@@ -1,0 +1,1627 @@
+version: '3'
+services:
+
+  server:
+    image: 'acspfl-server:latest'
+    container_name: fl_server
+    environment:
+      - SERVER_IP=0.0.0.0:9999
+      - NUM_CLIENTS=50
+      - NUM_ROUNDS=10
+      - ALGORITHM=DEEV
+      - POC=0.1
+      - SOLUTION_NAME=ACSP-FL
+      - DATASET=MNIST
+      - MODEL=DNN
+      - DECAY=0.01
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role==manager
+    
+
+  client-0:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=0
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.9926155898605122"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-1:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=1
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.341189903865914"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-2:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=2
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.078578807430474"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-3:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=3
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1.263271851309548"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-4:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=4
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.0332858835969922"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-5:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=5
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.9594965282767545"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-6:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=6
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.8918377276390115"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-7:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=7
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.09746461825778749"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-8:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=8
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "4.514874786755462"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-9:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=9
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.5108314178558493"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-10:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=10
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.991060059838509"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-11:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=11
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.571044770408786"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-12:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=12
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.086772160130903"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-13:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=13
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.23578694415116197"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-14:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=14
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.928517345166506"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-15:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=15
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.8529878291654753"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-16:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=16
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.324486822240994"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-17:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=17
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.936409408267176"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-18:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=18
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1.6416294475838102"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-19:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=19
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.6999732126093395"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-20:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=20
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.421340684615563"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-21:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=21
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.6983278123285395"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-22:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=22
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.890409604860059"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-23:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=23
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.123587513080874"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-24:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=24
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.1969736127842125"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-25:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=25
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "4.813091918670397"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-26:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=26
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.1495180269520104"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-27:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=27
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.39070252649089776"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-28:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=28
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "4.266689430449644"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-29:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=29
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.096748151559688"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-30:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=30
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.66400719155254"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-31:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=31
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.641559561977898"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-32:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=32
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.244525045990345"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-33:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=33
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.549011634301033"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-34:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=34
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.240257851044442"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-35:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=35
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.412975804347319"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-36:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=36
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "4.946246421396894"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-37:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=37
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.9754993806675192"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-38:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=38
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.106611301853379"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-39:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=39
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "4.660079397493494"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-40:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=40
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.44453984592090007"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-41:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=41
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1.1040589184572331"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-42:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=42
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1.4287436153095987"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-43:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=43
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.058134465638249165"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-44:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=44
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "5.1035674447049555"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-45:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=45
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.661185750263815"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-46:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=46
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "4.723961768224583"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-47:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=47
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.537953290557441"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-48:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=48
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.053259239401706"
+      placement:
+        constraints:
+          - node.role==worker
+          
+
+  client-49:
+    image: 'acspfl-client:latest'
+    environment:
+      - SERVER_IP=fl_server:9999
+      - CLIENT_ID=49
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0.1
+      - DECAY=0.01
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=True
+      - SHARED_LAYERS=2
+      - TIME2STARTMIN=0
+      - TIME2STARTMAX=30
+    volumes:
+      - ./logs:/logs
+    networks:
+      - default
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "2.79356398877619"
+      placement:
+        constraints:
+          - node.role==worker
+          
+

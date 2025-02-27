@@ -4,7 +4,7 @@ import random
 import pickle
 import pandas as pd
 
-#from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import Normalizer
 
 import logging
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
@@ -16,7 +16,7 @@ class ManageDatasets():
 		#random.seed(self.cid)
 
 	def load_UCIHAR(self):
-		with open(f'./data/UCI-HAR/{self.cid +1}_train.pickle', 'rb') as train_file:
+		with open(f'Client/data/UCI-HAR/{self.cid +1}_train.pickle', 'rb') as train_file:
 			train = pickle.load(train_file)
 
 		with open(f'./data/UCI-HAR/{self.cid+1}_test.pickle', 'rb') as test_file:

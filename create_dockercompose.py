@@ -1,11 +1,11 @@
 import os
-from optparse import OptionParser
+import argparse
 import random
 
 
-def add_server_info(clients, rounds, algorithm,  solution, dataset, model, poc, decay):
+def add_server_info(clients, rounds, algorithm, solution, dataset, model, poc, decay):
     server_str = f"  server:\n\
-    image: 'allanmsouza/deev:server_fl'\n\
+    image: 'acspfl-server:latest'\n\
     container_name: fl_server\n\
     environment:\n\
       - SERVER_IP=0.0.0.0:9999\n\
@@ -32,9 +32,9 @@ def add_server_info(clients, rounds, algorithm,  solution, dataset, model, poc, 
 
 
 def add_client_info(client, model, client_selection, local_epochs, solution, algorithm,
-					dataset, poc, decay, transmittion_threshold, personalization, shared_layers):
+                    dataset, poc, decay, transmittion_threshold, personalization, shared_layers):
     client_str = f"  client-{client}:\n\
-    image: 'allanmsouza/deev:client_fl'\n\
+    image: 'acspfl-client:latest'\n\
     environment:\n\
       - SERVER_IP=fl_server:9999\n\
       - CLIENT_ID={client}\n\
@@ -67,46 +67,47 @@ def add_client_info(client, model, client_selection, local_epochs, solution, alg
 
     return client_str
 
+
 def main():
+    parser = argparse.ArgumentParser(description="Generate Docker Compose file for FL simulation")
 
-    parser = OptionParser()
+    parser.add_argument("-c", "--clients", type=int, required=True, help="Number of clients")
+    parser.add_argument("-m", "--model", type=str, default='LR', help="Model type")
+    parser.add_argument("--client-selection", type=str, required=True, help="Client selection method")
+    parser.add_argument("-e", "--local-epochs", type=int, default=1, help="Number of local epochs")
+    parser.add_argument("-s", "--solution", type=str, default="ACSP-FL", help="Solution name")
+    parser.add_argument("-a", "--algorithm", type=str, default="DEEV", help="Federated algorithm")
+    parser.add_argument("-d", "--dataset", type=str, required=True, help="Dataset to use")
+    parser.add_argument("-r", "--rounds", type=int, default=100, help="Number of communication rounds")
+    parser.add_argument("--poc", type=float, default=0, help="Percentage of clients selected using PoC")
+    parser.add_argument("--decay", type=float, default=0, help="Decay factor for DEEV and ACSP-FL")
+    parser.add_argument("-t", "--threshold", type=float, default=0.2, help="Transmission threshold")
+    parser.add_argument("-p", "--personalization", action='store_true', help="Enable personalization")
+    parser.add_argument("--shared-layers", type=int, default=0, help="Number of layers to share in personalization")
 
-    parser.add_option("-c", "--clients",            dest="clients", default=0)
-    parser.add_option("-m", "--model",              dest="model",   default='LR')
-    parser.add_option("",   "--client-selection",   dest="client_selection",   default=False)
-    parser.add_option("-e", "--local-epochs",       dest="local_epochs",   default=1)
-    parser.add_option("-s", "--solution",           dest="solution",   default=None)
-    parser.add_option("-a", "--algorithm",          dest="algorithm",  default=None)
-    parser.add_option("-d", "--dataset",            dest="dataset",   default='UCIHAR')
-    parser.add_option("-r", "--rounds",             dest="rounds",   default=100)
-    parser.add_option("",   "--poc",                dest="poc",     default=0)
-    parser.add_option("",   "--decay",              dest="decay",   default=0)
-    parser.add_option("-t", "--threshold",          dest="transmittion_threshold",   default=0.2)
-    parser.add_option("-p", "--personalization",    dest="personalization",   default=False)
-    parser.add_option("",   "--shared-layers",      dest="shared_layers",   default=0)
+    args = parser.parse_args()
 
+    # Geração correta do nome do arquivo
+    filename = f"{args.client_selection}-{args.clients}-{args.dataset}.yaml"
 
-    (opt, args) = parser.parse_args()
-
-    with open(f'{opt.algorithm}-{opt.poc}-{opt.dataset}.yaml', 'a') as dockercompose_file:
+    with open(filename, 'w') as dockercompose_file:
         header = f"version: '3'\nservices:\n\n"
-
         dockercompose_file.write(header)
 
-        server_str = add_server_info(opt.clients, opt.rounds, opt.algorithm, opt.solution, 
-	    				opt.dataset, opt.model, opt.poc, opt.decay)
+        server_str = add_server_info(args.clients, args.rounds, args.algorithm, args.solution,
+                                     args.dataset, args.model, args.poc, args.decay)
 
         dockercompose_file.write(server_str)
 
-        for client in range(int(opt.clients)):
-            client_str = add_client_info(client, opt.model, opt.client_selection, opt.local_epochs,
-										 opt.solution, opt.algorithm, opt.dataset, opt.poc, opt.decay,
-										 opt.transmittion_threshold, opt.personalization, opt.shared_layers)    
+        for client in range(args.clients):
+            client_str = add_client_info(client, args.model, args.client_selection, args.local_epochs,
+                                         args.solution, args.algorithm, args.dataset, args.poc, args.decay,
+                                         args.threshold, args.personalization, args.shared_layers)
 
             dockercompose_file.write(client_str)
 
-
+    print(f"Docker Compose file '{filename}' generated successfully.")
 
 
 if __name__ == '__main__':
-	main()
+    main()

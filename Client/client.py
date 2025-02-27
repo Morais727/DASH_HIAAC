@@ -8,8 +8,8 @@ import os
 import time
 import sys
 
-from dataset_utils import ManageDatasets
-from model_definition import ModelCreation
+from Client.dataset_utils import ManageDatasets
+from Client.model_definition import ModelCreation
 
 
 import warnings
