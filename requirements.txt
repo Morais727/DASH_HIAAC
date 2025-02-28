@@ -1,0 +1,9 @@
+paramiko
+pandas
+streamlit
+matplotlib
+plotly
+numpy
+flwr
+tensorflow
+docker
