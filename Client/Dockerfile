@@ -20,7 +20,7 @@ RUN pip install -U pip
 RUN pip install --upgrade pip
 
 # Instala versões compatíveis das bibliotecas
-RUN pip install --no-cache-dir numpy==1.23.5 pandas==1.5.3 tensorflow==2.10.1 flwr==1.2.0 scikit-learn
+RUN pip install --no-cache-dir numpy==1.23.5 pandas==1.5.3 tensorflow==2.10.1 flwr==1.3.0 scikit-learn
 
 
 CMD ["python", "-u", "client.py"]

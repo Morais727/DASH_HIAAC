@@ -18,6 +18,9 @@ warnings.simplefilter("ignore")
 import logging
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
+
 class FedClient(fl.client.NumPyClient):
 
 	def __init__(self, cid=0, n_clients=None, epochs=1, 
@@ -91,16 +94,16 @@ class FedClient(fl.client.NumPyClient):
 		input_shape = self.x_train.shape
 
 		if self.model_name == 'LR':
-			return ModelCreation().create_LogisticRegression(input_shape, 6)
+			return ModelCreation().create_LogisticRegression(input_shape, 10)
 
 		elif self.model_name == 'DNN':
 			if self.dataset == 'ExtraSensory':
-				return ModelCreation().create_DNN(input_shape, 8)
+				return ModelCreation().create_DNN(input_shape, 10)
 			else:
-				return ModelCreation().create_DNN(input_shape, 6)
+				return ModelCreation().create_DNN(input_shape, 10)
 
 		elif self.model_name == 'CNN':
-			return ModelCreation().create_CNN(input_shape, 6)
+			return ModelCreation().create_CNN(input_shape, 10)
 	
 	def personalize(self, shared_layers):
 		local_parameters        = self.local_model.get_weights()
@@ -248,7 +251,7 @@ def main():
 	time2start_max = int(os.environ['TIME2STARTMAX'])
 	time.sleep(random.uniform(time2start_min, time2start_max))
 	fl.client.start_numpy_client(server_address=os.environ['SERVER_IP'], client=client)
-
+	
 
 if __name__ == '__main__':
 	main()

@@ -11,8 +11,8 @@ import os
 global DATASET  
 global SOLUTION 
 
-PATH = '/home/allanmsouza/Projects/ACSP-FL/docker-compose-files/logs'
-DATASET  = 'MotionSense'
+PATH = 'logs'
+DATASET  = 'MNIST'
 SOLUTION = 'DEEV-DEEV'
 
 # app = Dash(__name__)

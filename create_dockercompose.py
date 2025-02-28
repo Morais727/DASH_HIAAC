@@ -8,7 +8,7 @@ def add_server_info(clients, rounds, algorithm, solution, dataset, model, poc, d
     image: 'acsp-fl-server:latest'\n\
     container_name: fl_server\n\
     environment:\n\
-      - SERVER_IP=0.0.0.0:9999\n\
+      - SERVER_IP=172.18.0.1:8080\n\
       - NUM_CLIENTS={clients}\n\
       - NUM_ROUNDS={rounds}\n\
       - ALGORITHM={algorithm}\n\
@@ -36,7 +36,7 @@ def add_client_info(num_clients, id_client, model, client_selection, local_epoch
     client_str = f"  client-{id_client}:\n\
     image: 'acsp-fl-client:latest'\n\
     environment:\n\
-      - SERVER_IP=fl_server:9999\n\
+      - SERVER_IP=fl_server:8080\n\
       - CLIENT_ID={id_client}\n\
       - N_CLIENTS={num_clients}\n\
       - MODEL={model}\n\

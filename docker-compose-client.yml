@@ -1,0 +1,111 @@
+version: '3'
+services:
+  client-0:
+    image: 'acsp-fl-client:latest'
+    environment:
+      - SERVER_IP=192.168.0.227:8080
+      - CLIENT_ID=0
+      - N_CLIENTS=3
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0
+      - DECAY=0
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=False
+      - SHARED_LAYERS=0
+      - TIME2STARTMIN=0   # 🔹 Adicionado para evitar erro
+      - TIME2STARTMAX=30  # 🔹 Adicionado para evitar erro
+    volumes:
+      - ./logs:/logs
+    networks:
+      - fl_network
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.3431950159921904"
+
+networks:
+  fl_network:
+    driver: bridge
+    
+
+
+version: '3'
+services:
+  client-1:
+    image: 'acsp-fl-client:latest'
+    environment:
+      - SERVER_IP=192.168.0.227:8080
+      - CLIENT_ID=1
+      - N_CLIENTS=3
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0
+      - DECAY=0
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=False
+      - SHARED_LAYERS=0
+      - TIME2STARTMIN=0   # 🔹 Adicionado para evitar erro
+      - TIME2STARTMAX=30  # 🔹 Adicionado para evitar erro
+    volumes:
+      - ./logs:/logs
+    networks:
+      - fl_network
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.9974807711247703"
+
+networks:
+  fl_network:
+    driver: bridge
+    
+
+
+version: '3'
+services:
+  client-2:
+    image: 'acsp-fl-client:latest'
+    environment:
+      - SERVER_IP=192.168.0.227:8080
+      - CLIENT_ID=2
+      - N_CLIENTS=3
+      - MODEL=DNN
+      - CLIENT_SELECTION=DEEV
+      - LOCAL_EPOCHS=1
+      - SOLUTION_NAME=ACSP-FL
+      - ALGORITHM=DEEV
+      - DATASET=MNIST
+      - POC=0
+      - DECAY=0
+      - TRANSMISSION_THRESHOLD=0.2
+      - PERSONALIZATION=False
+      - SHARED_LAYERS=0
+      - TIME2STARTMIN=0   # 🔹 Adicionado para evitar erro
+      - TIME2STARTMAX=30  # 🔹 Adicionado para evitar erro
+    volumes:
+      - ./logs:/logs
+    networks:
+      - fl_network
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "3.906834862463332"
+
+networks:
+  fl_network:
+    driver: bridge
+    
+
+
