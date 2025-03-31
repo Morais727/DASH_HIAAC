@@ -1,257 +1,147 @@
-import flwr as fl
-import tensorflow
-import random
-import time
-import numpy as np
 import tensorflow as tf
+import flwr as fl
 import os
+import socket
 import time
-import sys
-
-from dataset_utils import ManageDatasets
+import random
+import paho.mqtt.publish as publish
+import requests
 from model_definition import ModelCreation
+from dataset_utils import ManageDatasets 
+from prometheus_client import Gauge, start_http_server
+import threading
 
+class ClienteFlower(fl.client.NumPyClient):
 
-import warnings
-warnings.simplefilter("ignore")
+    def __init__(self, cid):
+        self.cid = cid
+        self.x_treino, self.y_treino, self.x_teste, self.y_teste = self.load_data()
+        self.modelo = self.cria_modelo()
 
-import logging
-logging.getLogger("tensorflow").setLevel(logging.ERROR)
+        self.accuracy_metric = Gauge('fl_client_accuracy', 'Acurácia do cliente FL', ['client_id', 'tipo', 'round'])
+        self.loss_metric = Gauge('fl_client_loss', 'Loss do cliente FL', ['client_id', 'tipo', 'round'])
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+    def _log_metrics(self, tipo, accuracy, loss, round_num):
+        self.accuracy_metric.labels(client_id=str(self.cid), tipo=tipo, round=str(round_num)).set(accuracy)
+        self.loss_metric.labels(client_id=str(self.cid), tipo=tipo, round=str(round_num)).set(loss)
 
+    def load_data(self):
+        dataset_name = os.environ.get("DATASET", "MNIST").upper()
+        non_iid = os.environ.get("NON_IID", "False").lower() == "true"
+        num_clients = int(os.environ.get("NUM_CLIENTS", "5"))
+        alpha_env = os.environ.get("DIRICHLET_ALPHA", None)
 
-class FedClient(fl.client.NumPyClient):
+        # Converte alpha se estiver presente e válido
+        alpha = float(alpha_env) if alpha_env is not None else None
 
-	def __init__(self, cid=0, n_clients=None, epochs=1, 
-				 model_name             = 'None', 
-				 client_selection       = False, 
-				 solution_name          = 'None', 
-				 aggregation_method     = 'None',
-				 dataset                = '',
-				 perc_of_clients        = 0,
-				 decay                  = 0,
-				 transmittion_threshold = 0.2,
-				 personalization        = False,
-				 shared_layers          = 0):
+        dataset_manager = ManageDatasets(self.cid)
 
-		self.cid          = int(cid)
-		self.n_clients    = n_clients
-		self.model_name   = model_name
-		self.local_epochs = epochs
-		self.non_iid      = False
+        print(f"📥 Carregando dataset: {dataset_name} | non_iid={non_iid} | n_clients={num_clients} | alpha={alpha}")
 
-		self.local_model     = None
-		self.global_model    = None
-		self.x_train         = None
-		self.x_test          = None
-		self.y_train         = None
-		self.y_test          = None
-		self.local_acc       = -1
-		self.global_acc      = 0
-		self.personalization = personalization
-		self.shared_layers   = shared_layers
+        try:
+            data = dataset_manager.select_dataset(
+                dataset_name=dataset_name,
+                n_clients=num_clients,
+                non_iid=non_iid,
+                alpha=alpha
+            )
+        except Exception as e:
+            print(f"❌ Erro ao carregar dataset {dataset_name}: {e}")
+            raise e
 
-		#resources
-		self.battery               = random.randint(99, 100)
-		self.cpu_cost              = 0.0
-		self.transmittion_prob     = 1
-		self.transmittion_threshold = transmittion_threshold
+        if data is None:
+            raise ValueError("❌ Nenhum dataset foi retornado!")
 
-		#logs
-		self.solution_name      = solution_name
-		self.aggregation_method = aggregation_method
-		self.dataset            = dataset
+        x_train, y_train, x_test, y_test = data
 
-		self.client_selection = client_selection
-		self.perc_of_clients  = perc_of_clients
-		self.decay            = decay
+        # Normaliza se for 2D
+        if len(x_train.shape) == 2:
+            x_train, x_test = dataset_manager.normalize_data(x_train, x_test)
 
-		#params
-		if self.aggregation_method == 'POC':
-			self.solution_name = f"{solution_name}-{aggregation_method}-{self.perc_of_clients}"
+        # Adiciona canal para CNN
+        if len(x_train.shape) == 3:
+            x_train = x_train[..., None]
+            x_test = x_test[..., None]
 
-		elif self.aggregation_method == 'DEEV': 
-			self.solution_name = f"{solution_name}-{aggregation_method}-{self.decay}"
+        return x_train, y_train, x_test, y_test
 
-		elif self.aggregation_method == 'None':
-			self.solution_name = f"{solution_name}-{aggregation_method}"
+    def cria_modelo(self):
+        model_type = os.environ.get("MODEL_TYPE", "DNN").upper()
+        num_classes = len(set(self.y_treino))
+        input_shape = self.x_treino.shape
 
-		self.x_train, self.y_train, self.x_test, self.y_test = self.load_data(self.dataset, n_clients=self.n_clients)
-		self.local_model                                     = self.create_model()
-		self.global_model                                    = self.create_model()
+        creator = ModelCreation()
 
-	def load_data(self, dataset_name, n_clients):
-		print(f"Carregando dataset {dataset_name} para {n_clients} clientes...")  # Debug
-		if n_clients is None:
-			raise ValueError("ERRO: n_clients está como None antes de chamar select_dataset!")
+        if model_type == "CNN":
+            print("📦 Criando modelo CNN")
+            return creator.create_CNN(input_shape, num_classes)
+        elif model_type == "LOGISTICREGRESSION":
+            print("📦 Criando modelo Logistic Regression")
+            return creator.create_LogisticRegression(input_shape, num_classes)
+        else:
+            print("📦 Criando modelo DNN (padrão)")
+            return creator.create_DNN(input_shape, num_classes)
 
-		return ManageDatasets(self.cid).select_dataset(dataset_name, n_clients, self.non_iid)
+    def get_parameters(self, config):
+        return self.modelo.get_weights()
 
+    def fit(self, parameters, config):
+        server_round = int(config['server_round'])
 
+        self.modelo.set_weights(parameters)
+        history = self.modelo.fit(self.x_treino, self.y_treino, epochs=1, verbose=1)
+        accuracy = history.history["accuracy"][0]
+        loss = history.history["loss"][0]
+        
+        self._log_metrics("train", accuracy, loss, server_round)
+        
+        return self.modelo.get_weights(), len(self.x_treino), {"accuracy": accuracy, "loss": loss}
 
-	def create_model(self):
-		input_shape = self.x_train.shape
+    def evaluate(self, parameters, config):
+        server_round = int(config['server_round'])
 
-		if self.model_name == 'LR':
-			return ModelCreation().create_LogisticRegression(input_shape, 10)
+        self.modelo.set_weights(parameters)
+        loss, accuracy = self.modelo.evaluate(self.x_teste, self.y_teste)
+        
+        self._log_metrics("test", accuracy, loss, server_round)
 
-		elif self.model_name == 'DNN':
-			if self.dataset == 'ExtraSensory':
-				return ModelCreation().create_DNN(input_shape, 10)
-			else:
-				return ModelCreation().create_DNN(input_shape, 10)
+        return loss, len(self.x_teste), {"accuracy": accuracy}
 
-		elif self.model_name == 'CNN':
-			return ModelCreation().create_CNN(input_shape, 10)
-	
-	def personalize(self, shared_layers):
-		local_parameters        = self.local_model.get_weights()
-		global_parameters       = self.global_model.get_weights()
-		personalized_parameters = local_parameters
+# === Verifica conexão com servidor ===
+def check_server_connection(server_ip, port=7070, timeout=10):
+    try:
+        with socket.create_connection((server_ip, port), timeout):
+            return True
+    except Exception as e:
+        print(f"❌ Erro de conexão: {e}")
+        return False
 
-		if 'DYNAMIC' in self.solution_name:
-			if self.local_acc < 0.3:
-				shared_layers = 3
-				self.shared_layers = shared_layers
-			else:
-				shared_layers = int(1.0/float(self.local_acc))
-				self.shared_layers = shared_layers
-				print(shared_layers)
-
-		shared_layers = (1 + (2 * (shared_layers - 1) )) * -1
-		
-		while shared_layers < 0:
-			personalized_parameters[shared_layers] = global_parameters[shared_layers]
-			shared_layers += 1
-
-		return personalized_parameters
-
-	def get_parameters(self, config):
-		return self.local_model.get_weights()
-
-	def fit(self, parameters, config):
-		selected_clients   = []
-		trained_parameters = []
-		selected           = 0
-		has_battery        = False
-		total_time         = -1
-
-		if config['selected_clients'] != '':
-			selected_clients = [int (cid_selected) for cid_selected in config['selected_clients'].split(' ')]
-		
-		start_time = time.process_time()
-		if self.cid in selected_clients or self.client_selection == False or int(config['round']) == 1:
-			
-			#check if client has some battery available for training
-			if self.battery >= 0.05:
-
-				if self.personalization and int(config['round']) > 1:
-					if self.local_acc < self.global_acc and self.shared_layers == 0:
-						self.local_model.set_weights(parameters)
-					else:
-						personalized_parameters = self.personalize(self.shared_layers)
-						self.local_model.set_weights(personalized_parameters)
-					
-				else:
-					self.local_model.set_weights(parameters)
-				has_battery        = True
-				selected           = 1
-				history            = self.local_model.fit(self.x_train, self.y_train, verbose=0, epochs=self.local_epochs)
-				trained_parameters = self.local_model.get_weights()
-		
-				total_time         = time.process_time() - start_time
-				size_of_parameters = sum(map(sys.getsizeof, trained_parameters[self.shared_layers * -1:]))
-				avg_loss_train     = history.history['loss'][-1]
-				avg_acc_train      = history.history['accuracy'][-1]
-				
-
-				filename = f"logs/{self.dataset}/{self.solution_name}/{self.model_name}/train_client_{self.cid}.csv"
-				os.makedirs(os.path.dirname(filename), exist_ok=True)
-
-				self.battery  = self.battery - (total_time * 0.05)
-				self.cpu_cost = total_time
-
-			#fit_response = {'cid': self.cid, 'transmittion_prob' : self.transmittion_prob,'cpu_cost': total_time}
-
-			#check transmission probability
-			last_prob              = self.transmittion_prob
-			self.transmittion_prob = random.uniform(0, 1)
-
-			if last_prob >= self.transmittion_threshold and has_battery:
-				with open(filename, 'a') as log_train_file:
-					log_train_file.write(f"{config['round']}, {self.cid}, {selected}, {total_time}, {size_of_parameters}, {avg_loss_train}, {avg_acc_train}\n")
-					
-				return trained_parameters, len(self.x_train), {'cid': self.cid, 'transmittion_prob' : self.transmittion_prob, 'cpu_cost': total_time}
-
-			#transmission or train failled
-			else:
-				filename = f"logs/{self.dataset}/{self.solution_name}/{self.model_name}/failures_{self.cid}.csv"
-				os.makedirs(os.path.dirname(filename), exist_ok=True)
-
-				with open(filename, 'a') as log_failure_file:
-					log_failure_file.write(f"{config['round']}, {self.cid}, {last_prob}, {self.battery}\n")
-
-				return parameters, len(self.x_train), {'cid': self.cid, 'transmittion_prob' : self.transmittion_prob, 'cpu_cost': total_time}
-		else:
-			return parameters, len(self.x_train), {'cid': self.cid, 'transmittion_prob' : self.transmittion_prob, 'cpu_cost': total_time}				
-
-	def evaluate(self, parameters, config):
-		
-		self.global_model.set_weights(parameters)
-		loss, accuracy = self.global_model.evaluate(self.x_test, self.y_test, verbose=0)
-		size_of_parameters      = sum(map(sys.getsizeof, parameters))
-		self.global_acc         = accuracy
-
-		if self.personalization == True:
-			#local eval
-			loss_local, acc_local = self.local_model.evaluate(self.x_test, self.y_test, verbose=0)
-			size_of_parameters    = sum(map(sys.getsizeof, parameters))
-			self.local_acc        = acc_local
-
-			if self.local_acc > self.global_acc:
-				loss     = loss_local
-				accuracy = acc_local
-
-		filename = f"logs/{self.dataset}/{self.solution_name}/{self.model_name}/evaluate_client_{self.cid}.csv"
-		os.makedirs(os.path.dirname(filename), exist_ok=True)
-
-		with open(filename, 'a') as log_evaluate_file:
-			log_evaluate_file.write(f"{config['round']}, {self.cid}, {size_of_parameters}, {loss}, {accuracy}\n")
-
-		evaluation_response = {
-			"cid"               : self.cid,
-			"accuracy"          : float(accuracy),
-			"transmittion_prob" : self.transmittion_prob,
-			"cpu_cost"          : self.cpu_cost,
-			"battery"           : self.battery
-		}
-
-		return loss, len(self.x_test), evaluation_response
-
-
+# === Main ===
 def main():
-	
-	client =  FedClient(
-					cid                    = int(os.environ['CLIENT_ID']), 
-					n_clients              = int(os.environ['N_CLIENTS']),
-					model_name             = os.environ['MODEL'], 
-					client_selection       = not os.environ['CLIENT_SELECTION'] == 'False', 
-					epochs                 = int(os.environ['LOCAL_EPOCHS']), 
-					solution_name          = os.environ['SOLUTION_NAME'],
-					aggregation_method     = os.environ['ALGORITHM'],
-					dataset                = os.environ['DATASET'],
-					perc_of_clients        = float(os.environ['POC']),
-					decay                  = float(os.environ['DECAY']),
-					transmittion_threshold = float(os.environ['TRANSMISSION_THRESHOLD']),
-					personalization        = os.environ['PERSONALIZATION'] == 'True',
-					shared_layers          = int(os.environ['SHARED_LAYERS'])
-					)
-	time2start_min = int(os.environ['TIME2STARTMIN'])
-	time2start_max = int(os.environ['TIME2STARTMAX'])
-	time.sleep(random.uniform(time2start_min, time2start_max))
-	fl.client.start_numpy_client(server_address=os.environ['SERVER_IP'], client=client)
-	
+    cid = int(os.environ.get("CLIENT_ID", 0))
+    server_ip = os.environ.get("SERVER_IP", "100.127.13.111").split(":")[0]
+    server_port = int(os.environ.get("SERVER_PORT", "7070"))
 
-if __name__ == '__main__':
-	main()
+    while not check_server_connection(server_ip, server_port):
+        print("🔁 Tentando reconectar em 30 segundos...")
+        time.sleep(30)
+
+    print("✅ Conectado ao servidor. Preparando para iniciar cliente...")
+
+    wait_time = random.uniform(3, 10)
+    print(f"⏳ Aguardando {int(wait_time)} segundos antes de iniciar o cliente...")
+    time.sleep(wait_time)
+
+    client = ClienteFlower(cid)
+    start_http_server(9102)  # inicia servidor Prometheus após o registro das métricas
+
+    try:
+        fl.client.start_client(
+            server_address=f"{server_ip}:{server_port}",
+            client=client
+        )
+    except Exception as e:
+        print(f"❌ Erro ao iniciar cliente: {e}")
+
+if __name__ == "__main__":
+    main()

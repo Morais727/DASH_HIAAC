@@ -1,0 +1,68 @@
+# Configuração do Prometheus
+
+global:
+  scrape_interval: 5s  # Coletar métricas a cada 15 segundos (padrão era 1 min)
+  evaluation_interval: 1s  # Avaliar regras a cada 15 segundos
+  scrape_timeout: 3s  # Tempo limite para cada scrape
+
+  # Labels Globais
+  external_labels:
+    monitor: 'fl_monitoring'
+
+# Configuração do Alertmanager
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['localhost:9093']
+
+# Regras (caso necessário no futuro)
+rule_files:
+  # - "rules.yml"
+
+# Configurações de scraping
+scrape_configs:
+  # 📌 Monitoramento do próprio Prometheus
+  - job_name: 'server'
+    scrape_interval: 5s  # Scraping mais frequente para Prometheus
+    scrape_timeout: 3s
+    static_configs:
+      - targets: ['100.127.13.111:9100']
+        labels:
+          group: 'server'
+
+  # 📌 Monitoramento dos Clientes FL (Métricas de treinamento)
+  - job_name: 'node_exporter'
+    scrape_interval: 5s
+    scrape_timeout: 3s
+    static_configs:
+      - targets:
+          - '100.97.70.44:9102'
+          - '100.99.55.62:9102'
+          - '100.112.180.2:9102'
+          - '100.91.59.20:9102'
+        labels:
+          group: 'fl_clients'
+
+
+
+# 📌 Monitoramento da API Flask (fl_server)
+  - job_name: 'fl_server'
+    scrape_interval: 5s
+    scrape_timeout: 3s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['100.127.13.111:5150']
+        labels:
+          group: 'fl_server'
+
+ # Pushgateway para métricas customizadas dos clientes
+  - job_name: 'pushgateway'
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+          - '100.97.70.44:9091'
+          - '100.99.55.62:9091'
+          - '100.112.180.2:9091'
+          - '100.91.59.20:9091'
+        labels:
+          group: 'push_metrics'
