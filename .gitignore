@@ -4,3 +4,9 @@ node_modules
 .DS_Store
 .dist
 __pycache__
+env/
+*.so
+*.bin
+Server_env/
+Surplus_env/
+*.pyc
