@@ -1,7 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo_HIAAC.svg";
-
+import background from "../assets/hiaac.png"; // Importe a imagem de fundo
 
 export default function Home() {
   return (
@@ -12,8 +11,13 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      bgcolor="#121212"
-      position="relative" 
+      position="relative"
+      sx={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <Box
         display="flex"
@@ -21,12 +25,16 @@ export default function Home() {
         justifyContent="center"
         alignItems="center"
         minHeight="10vh"
-        bgcolor="#7c889c"
+        bgcolor="rgba(124, 136, 156, 0.9)" // Adicione opacidade para melhor contraste com o fundo
         padding={4}
         borderRadius={2}
         boxShadow={3}
-        width="70vw"
-        >
+        width="50vw"
+      >
+        <Typography variant="h2" color="white">
+                      Dashboard Federated Learning
+                    </Typography>
+        
         <Typography variant="h4" gutterBottom color="white">
           Menu Principal
         </Typography>
@@ -39,7 +47,7 @@ export default function Home() {
             color="success"
             sx={{ m: 2 }}
           >
-            📊 Acompanhar Métricas
+            Acompanhar Métricas
           </Button>
 
           <Button
@@ -49,8 +57,19 @@ export default function Home() {
             color="secondary"
             sx={{ m: 2, bgcolor: "purple" }}
           >
-            ⚙️ Configurar Experimento
+            Configurar Experimento
           </Button>
+
+          <Button
+            component={Link}
+            to="/configurar-pis"
+            variant="contained"
+            color="secondary"
+            sx={{ m: 2, bgcolor: "blue" }}
+          >
+            Configurar PIs
+          </Button>
+
         </Box>
 
         {/* Logo no canto inferior direito */}
@@ -59,7 +78,6 @@ export default function Home() {
           bottom={16}
           right={16}
         >
-          <img src={logo} alt="Logo" style={{ width: 250, height: "auto" }} />
         </Box>
       </Box>
     </Box>

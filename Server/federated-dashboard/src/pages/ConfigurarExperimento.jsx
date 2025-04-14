@@ -13,6 +13,7 @@ import {
   ListItemText
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import background from "../assets/hiaac.png"; // 
 
 export default function ConfigurarExperimento() {
   const [files, setFiles] = useState({
@@ -95,14 +96,19 @@ export default function ConfigurarExperimento() {
 
   return (
     <Box
+      height="100vh"
+      width="100vw"
       display="flex"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      minHeight="100vh"
-      bgcolor="#000000"
-      padding={4}
-      width="100vw"
+      position="relative"
+      sx={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <Box
         display="flex"

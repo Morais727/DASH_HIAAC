@@ -5,6 +5,7 @@ DASHBOARD_DIR="Server/federated-dashboard"
 FLASK_SCRIPT="Server/flask-server/server_flask.py"
 MQTT_SCRIPT="Server/flask-server/server_mqtt_listener.py"
 SYNC_SCRIPT="./sync_directories.py"
+SURPLUS_LISTENER="Client/surplus_mqtt_listener.py"
 PROMETHEUS_CMD="/usr/bin/prometheus"
 PROMETHEUS_CONF="Server/prometheus.yml"
 
@@ -20,6 +21,9 @@ start_services() {
 
     nohup python3 "$MQTT_SCRIPT" > mqtt_listener.log 2>&1 &
     echo "🟢 MQTT Listener iniciado."
+
+    nohup python3 "$SURPLUS_LISTENER" > surplus_listener.log 2>&1 &
+    echo "🟢 Surplus MQTT Listener iniciado."
 
     nohup sudo $PROMETHEUS_CMD --config.file=$PROMETHEUS_CONF > prometheus.log 2>&1 &
     echo "🟢 Prometheus iniciado."
@@ -49,6 +53,11 @@ stop_services() {
     sleep 1
     pgrep -f "$MQTT_SCRIPT" && pkill -9 -f "$MQTT_SCRIPT"
 
+    echo "⏹️ Parando Surplus MQTT Listener..."
+    pkill -f "$SURPLUS_LISTENER"
+    sleep 1
+    pgrep -f "$SURPLUS_LISTENER" && pkill -9 -f "$SURPLUS_LISTENER"
+
     echo "⏹️ Parando Prometheus..."
     sudo pkill -f "$PROMETHEUS_CMD"
     sleep 1
@@ -73,6 +82,7 @@ status_services() {
     pgrep -fl "dashboard" || echo "❌ Dashboard não está rodando."
     pgrep -fl "$FLASK_SCRIPT" || echo "❌ Flask server não está rodando."
     pgrep -fl "$MQTT_SCRIPT" || echo "❌ MQTT Listener não está rodando."
+    pgrep -fl "$SURPLUS_LISTENER" || echo "❌ Surplus MQTT Listener não está rodando."
     pgrep -fl "$PROMETHEUS_CMD" || echo "❌ Prometheus não está rodando."
     pgrep -fl "$SYNC_SCRIPT" || echo "❌ Sincronizador de diretórios não está rodando."
 }

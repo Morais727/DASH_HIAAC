@@ -166,7 +166,7 @@ def salvar_arquivos_env():
 
 @app.route("/metrics/prometheus/combined")
 def get_combined_metrics():
-    global combined_history  # 👈 Importante
+    global combined_history  
 
     accuracy_query = 'fl_client_accuracy'
     loss_query = 'fl_client_loss'

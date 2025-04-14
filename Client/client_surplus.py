@@ -104,7 +104,7 @@ class ClienteFlower(fl.client.NumPyClient):
         loss, accuracy = self.modelo.evaluate(self.x_teste, self.y_teste)
         
         self._log_metrics("test", accuracy, loss, server_round)
-
+        
         # ✅ Delay antes de encerrar para garantir que Prometheus colete
         time.sleep(10) 
         
@@ -118,6 +118,23 @@ def check_server_connection(server_ip, port=7070, timeout=10):
     except Exception as e:
         print(f"❌ Erro de conexão: {e}")
         return False
+
+# === Encontra porta Prometheus livre entre 9101 e 9110 ===
+def find_free_port(start_port=9101, end_port=9110):
+    for port in range(start_port, end_port + 1):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(('localhost', port))
+                return port
+            except OSError:
+                continue
+    raise RuntimeError("❌ Não foi possível encontrar uma porta livre no intervalo 9101-9110.")
+
+def iniciar_prometheus():
+    port = find_free_port()
+    print(f"📡 Iniciando servidor Prometheus na porta {port}")
+    start_http_server(port)
+    return port
 
 # === Main ===
 def main():
@@ -136,7 +153,7 @@ def main():
     time.sleep(wait_time)
 
     client = ClienteFlower(cid)
-    start_http_server(9102)  # inicia servidor Prometheus após o registro das métricas
+    iniciar_prometheus()  # inicia Prometheus em porta livre entre 9101 e 9110
 
     try:
         fl.client.start_client(

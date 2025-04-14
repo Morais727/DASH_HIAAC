@@ -10,6 +10,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
+import SearchIcon from '@mui/icons-material/Search';
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Legend, Tooltip);
 
@@ -154,15 +155,21 @@ export default function CombinedMetricsChart({
       y: { beginAtZero: true },
       x: { display: true },
     },
+    plugins: {
+      legend: {
+        display: false, // ✅ Isso desativa a legenda!
+      },
+    },
     animation: { duration: 0 },
   };
+  
 
   return (
     <Box
       p={3}
       borderRadius="12px"
-      minWidth="400px"
-      height="400px"
+      minWidth="300px"
+      height="250px"
       bgcolor="#FFFFFF"
       display="flex"
       flexDirection="column"
@@ -172,16 +179,59 @@ export default function CombinedMetricsChart({
     >
       <Typography variant="h6" color="black">{title}</Typography>
 
-      <FormGroup row sx={{ mt: 1 }}>
-        <FormControlLabel
-          control={<Checkbox checked={showTrain} onChange={() => setShowTrain(!showTrain)} />}
-          label="Train"
+      <FormGroup row sx={{ alignItems: "center" }}>
+  <FormControlLabel
+    control={
+      <Checkbox
+        checked={showTrain}
+        onChange={() => setShowTrain(!showTrain)}
+        color="primary"
+        sx={{ p: 0.5 }}
+      />
+    }
+    label={
+      <Box display="flex" alignItems="center" gap={1}>
+        <Box
+          width={24}
+          height={14}
+          bgcolor="rgba(0,255,0,0.1)"
+          border="2px solid green"
+          borderRadius={1}
         />
-        <FormControlLabel
-          control={<Checkbox checked={showTest} onChange={() => setShowTest(!showTest)} />}
-          label="Test"
+        <Typography variant="body2" color="textPrimary">
+          Train
+        </Typography>
+      </Box>
+    }
+    sx={{ mr: 3 }}
+  />
+
+  <FormControlLabel
+    control={
+      <Checkbox
+        checked={showTest}
+        onChange={() => setShowTest(!showTest)}
+        color="primary"
+        sx={{ p: 0.5 }}
+      />
+    }
+    label={
+      <Box display="flex" alignItems="center" gap={1}>
+        <Box
+          width={24}
+          height={14}
+          bgcolor="rgba(255,165,0,0.1)"
+          border="2px solid orange"
+          borderRadius={1}
         />
-      </FormGroup>
+        <Typography variant="body2" color="textPrimary">
+          Test
+        </Typography>
+      </Box>
+    }
+  />
+</FormGroup>
+
 
       <div style={{ height: "250px", width: "100%" }}>
         <Line data={chartData} options={options} />
@@ -197,7 +247,7 @@ export default function CombinedMetricsChart({
         onClick={onClick}
         sx={{ alignSelf: "flex-end", mb: 1 }}
       >
-        🔍 Expandir
+        <SearchIcon />
       </Button>
 
     </Box>

@@ -18,6 +18,8 @@ import { Link } from "react-router-dom";
 import { exportAllMetrics } from "../utils/exportMetrics.js";
 import FullScreenChartModal from "../components/FullScreenChartModal";
 import SaveIcon from '@mui/icons-material/Save';
+import background from "../assets/hiaac.png"; // 
+
 
 function App() {
   const [status, setStatus] = useState("");
@@ -83,62 +85,64 @@ function App() {
   }, []);
 
   return (
-    <>
+    <Box
+      height="100vh"
+      width="100vw"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      position="relative"
+      sx={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
-        bgcolor="#000000"
-        padding={4}
-        width="100vw"
-      >
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          bgcolor="#7c889c"
-          padding={4}
-          borderRadius={2}
-          boxShadow={3}
-          width="80vw"
-        >
-          <Box textAlign="center" mt={2}>
-            <Typography variant="h4" color="white">
-              Dashboard Federated Learning
-            </Typography>
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              bgcolor="#7c889c"
+              padding={4}
+              borderRadius={2}
+              boxShadow={3}
+              width="70vw"
+            >
+        <Box textAlign="center" mt={2}>
+          <Button
+            variant="contained"
+            color="success"
+            component={Link}
+            to="/"
+            sx={{ mt: 2, mb: -1 }}
+            >
+              🔙 Voltar ao menu
+            </Button>
+
+          <Box mt={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => sendCommand("start")}
+              sx={{ ml: 2, mb: -1}}
+            > 
+              🚀 Iniciar
+            </Button>
 
             <Button
               variant="contained"
-              color="success"
-              component={Link}
-              to="/"
-              sx={{ mt: 2, mb: 2 }}
+              color="warning"
+              onClick={() => sendCommand("stop")}
+              sx={{ ml: 2, mb: -1 }}
             >
-              🔙 Voltar à Home
+              🛑 Parar
             </Button>
+          </Box>
 
-            <Box mt={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => sendCommand("start")}
-              >
-                🚀 Iniciar
-              </Button>
-              <Button
-                variant="contained"
-                color="warning"
-                onClick={() => sendCommand("stop")}
-                sx={{ ml: 2 }}
-              >
-                🛑 Parar
-              </Button>
-            </Box>
-
-            <Typography variant="h6" mt={2} color="white">
+            <Typography variant="h6" mt={2} mb={-3} color="white">
               Status: {status}
             </Typography>
           </Box>
@@ -151,8 +155,8 @@ function App() {
             gap={4}
             mt={4}
           >
-            <MetricChart title="Recebimento de Rede (bytes/s)" endpoint="/metrics/network/rx" label="rx" />
-            <MetricChart title="Envio de Rede (bytes/s)" endpoint="/metrics/network/tx" label="tx" />
+            <MetricChart title="Rede (bytes/s)" endpoint="/metrics/network/rx" label="rx" />
+            <MetricChart title="Rede (bytes/s)" endpoint="/metrics/network/tx" label="tx" />
             <MetricChart title="CPU (%)" endpoint="/metrics/cpu" label="cpu" />
             <MetricChart title="Memória (%)" endpoint="/metrics/memory" label="memory" />
           </Box>
@@ -205,8 +209,8 @@ function App() {
               <CombinedMetricsChart
                 title="Loss - Train vs Test"
                 metricKeyPrefix="loss"
-                colorTrain="purple"
-                colorTest="red"
+                colorTrain="green"
+                colorTest="orange"
                 onDataUpdate={setLossData}
                 onClick={() => {
                   if (lossData) {
@@ -242,8 +246,8 @@ function App() {
               <Box
                 p={3}
                 borderRadius="12px"
-                minWidth="250px"
-                height="150px"
+                minWidth="100px"
+                height="50px"
                 bgcolor="#FFFFFF"
                 display="flex"
                 flexDirection="column"
@@ -262,8 +266,8 @@ function App() {
               <Box
                 p={3}
                 borderRadius="12px"
-                minWidth="250px"
-                height="150px"
+                minWidth="100px"
+                height="50px"
                 bgcolor="#FFFFFF"
                 display="flex"
                 flexDirection="column"
@@ -310,15 +314,14 @@ function App() {
             </Button>
           )}
         </Box>
-      </Box>
-
-      {/* 🔍 Modal de Gráfico Expandido */}
-      <FullScreenChartModal
-        open={openChartModal}
-        onClose={() => setOpenChartModal(false)}
-        chartData={selectedChartData}
-        title={selectedChartTitle}
-      />
+      
+        {/* 🔍 Modal de Gráfico Expandido */}
+        <FullScreenChartModal
+          open={openChartModal}
+          onClose={() => setOpenChartModal(false)}
+          chartData={selectedChartData}
+          title={selectedChartTitle}
+        />
 
       {/* 📁 Modal de Exportação */}
       <Dialog open={exportDialogOpen} onClose={() => setExportDialogOpen(false)}>
@@ -362,7 +365,7 @@ function App() {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 }
 

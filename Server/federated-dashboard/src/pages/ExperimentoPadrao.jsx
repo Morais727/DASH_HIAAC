@@ -11,8 +11,10 @@ import {
   Switch,
   FormControlLabel,
   Grid,
+  Alert
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import background from "../assets/hiaac.png"; // 
 
 export default function RodarExperimento() {
   const [modelo, setModelo] = useState("DNN");
@@ -98,14 +100,19 @@ export default function RodarExperimento() {
 
   return (
     <Box
+      height="100vh"
+      width="100vw"
       display="flex"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      minHeight="100vh"
-      bgcolor="#000000"
-      padding={4}
-      width="100vw"
+      position="relative"
+      sx={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <Box
         display="flex"
@@ -126,7 +133,7 @@ export default function RodarExperimento() {
             to="/"
             sx={{ mb: 2 }}
           >
-            🔙 Voltar à Home
+            🔙 Voltar ao menu
           </Button>
 
           <Typography variant="h4" mb={3} color="white">
@@ -197,14 +204,22 @@ export default function RodarExperimento() {
               label="Nº de Clientes"
               type="number"
               value={numClients}
-              onChange={(e) => setNumClients(Number(e.target.value))}
+              onChange={(e) => {
+                const value = e.target.value;
+                // remove o 0 à esquerda (ex: "01" vira "1")
+                if (/^0\d/.test(value)) {
+                  setNumClients(value.replace(/^0+/, ""));
+                } else {
+                  setNumClients(value);
+                }
+              }}
               onBlur={() => {
-                if (numClients < 1) setNumClients(1);
-                if (numClients > 10) setNumClients(10);
+                if (numClients < 2) setNumClients(2);
+                if (numClients > 13) setNumClients(13);
               }}
               fullWidth
               sx={{ backgroundColor: "white" }}
-              inputProps={{ min: 1, max: 10 }}
+              inputProps={{ min: 2, max: 13 }}
               InputLabelProps={{
                 sx: {
                   color: "black",
@@ -219,12 +234,30 @@ export default function RodarExperimento() {
             />
           </Grid>
 
+          {numClients > 3 && (
+            <Grid item xs={12}>
+              <Alert severity="warning" sx={{ mt: 1 }}>
+                ⚠️ Número de PIs disponíveis é 3. Os demais clientes serão executados localmente.
+                <br />
+                Certifique-se de que sua máquina possui capacidade para suportar a carga adicional.
+              </Alert>
+            </Grid>
+          )}
+
           <Grid item xs={12} sm={6} md={4}>
             <TextField
               label="Epochs"
               type="number"
               value={epochs}
-              onChange={(e) => setEpochs(Number(e.target.value))}
+              onChange={(e) => {
+                const value = e.target.value;
+                // remove o 0 à esquerda (ex: "01" vira "1")
+                if (/^0\d/.test(value)) {
+                  setEpochs(value.replace(/^0+/, ""));
+                } else {
+                  setEpochs(value);
+                }
+              }}
               onBlur={() => {
                 if (epochs < 1) setEpochs(1);
                 if (epochs > 100) setEpochs(100);
@@ -251,15 +284,26 @@ export default function RodarExperimento() {
               label="Batch Size"
               type="number"
               value={batchSize}
-              onChange={(e) => setBatchSize(Number(e.target.value))}
+              onChange={(e) => {
+                const value = e.target.value;
+                // remove zeros à esquerda
+                if (/^0\d+/.test(value)) {
+                  setBatchSize(value.replace(/^0+/, ""));
+                } else {
+                  setBatchSize(value);
+                }
+              }}
               onBlur={() => {
-                if (batchSize < 1) setBatchSize(1);
-                if (batchSize > 1024) setBatchSize(1024);
+                const parsed = parseInt(batchSize);
+                if (isNaN(parsed) || parsed < 1) setBatchSize(1);
+                else if (parsed > 1024) setBatchSize(1024);
+                else setBatchSize(parsed); // garante que fique como número
               }}
               fullWidth
               sx={{ backgroundColor: "white" }}
               inputProps={{ min: 1, max: 1024 }}
               InputLabelProps={{
+                shrink: true,
                 sx: {
                   color: "black",
                   fontWeight: "bold",
@@ -273,12 +317,21 @@ export default function RodarExperimento() {
             />
           </Grid>
 
+
           <Grid item xs={12} sm={6} md={4}>
             <TextField
-              label="Num Rounds"
+              label="Nº de Rounds"
               type="number"
               value={numRounds}
-              onChange={(e) => setRounds(Number(e.target.value))}
+              onChange={(e) => {
+                const value = e.target.value;
+                // remove o 0 à esquerda (ex: "01" vira "1")
+                if (/^0\d/.test(value)) {
+                  setRounds(value.replace(/^0+/, ""));
+                } else {
+                  setRounds(value);
+                }
+              }}
               onBlur={() => {
                 if (numRounds < 1) setRounds(1);
                 if (numRounds > 1000) setRounds(1000);

@@ -4,16 +4,10 @@ import threading
 import os
 import time
 import json
-import signal
 
 # === Caminhos e configurações ===
-VENV_ACTIVATE = "Server_env/bin/activate"
 PYTHON_IN_VENV = "Server_env/bin/python3"
 PYTHON_SERVER_PATH = "/mnt/fl_clients/Server/flask-server/server.py"
-CLIENT_SCRIPT = "/mnt/fl_clients/Client/client.py"
-CLIENT_VENV_PYTHON = "/mnt/fl_clients/clients_venv/bin/python"
-CLIENT_ENV_PATH = "/mnt/fl_clients/Client/config_cliente.env"
-
 MQTT_BROKER = "100.127.13.111"
 MQTT_PORT = 1883
 MQTT_TOPIC = "fl/training"
@@ -21,7 +15,6 @@ SERVER_PORT = 7070
 
 # === Variáveis globais ===
 server_process = None
-simulated_client_processes = []  # Armazena os subprocessos de clientes simulados
 
 def free_port(port):
     """Libera a porta especificada se algum processo estiver a ocupando."""
@@ -41,7 +34,7 @@ def free_port(port):
 
 def start_server():
     """Inicia o servidor Python com base nas flags e variáveis de ambiente"""
-    global server_process, simulated_client_processes
+    global server_process
 
     if server_process is not None and server_process.poll() is None:
         print("⚠️ O servidor já está rodando.")
@@ -111,54 +104,10 @@ def start_server():
     except Exception as e:
         print(f"❌ Erro ao iniciar o servidor: {e}")
 
-    # === Inicia clientes excedentes locais, se especificado ===
-    try:
-        if os.path.exists(flags_path):
-            with open(flags_path, "r") as f:
-                flags = json.load(f)
+def stop_server():
+    """Interrompe o servidor"""
+    global server_process
 
-        surplus = flags.get("surplus_clients", 0)
-        if isinstance(surplus, int) and surplus > 0:
-            print(f"🤖 Iniciando {surplus} cliente(s) excedente(s) localmente...")
-
-            for i in range(surplus):
-                try:
-                    client_env = os.environ.copy()
-                    client_env["CLIENT_ID"] = i+1
-                    client_env["SIMULATED"] = "1"
-                    client_env["SERVER_ADDRESS"] = "100.127.13.111"
-                    client_env["PUSHGATEWAY_ADDRESS"] = "http://100.127.13.111:9091"
-
-                    if os.path.exists(CLIENT_ENV_PATH):
-                        with open(CLIENT_ENV_PATH) as f:
-                            for line in f:
-                                if "=" in line and not line.strip().startswith("#"):
-                                    k, v = line.strip().split("=", 1)
-                                    client_env[k] = v
-
-                    log_path = f"/mnt/fl_clients/tmp/simulado_{i+1}.log"
-                    log_file = open(log_path, "a")
-
-                    proc = subprocess.Popen(
-                        [CLIENT_VENV_PYTHON, CLIENT_SCRIPT],
-                        env=client_env,
-                        stdout=log_file,
-                        stderr=log_file
-                    )
-
-                    simulated_client_processes.append(proc)
-                    print(f"✅ Cliente simulado_{i+1} iniciado. Log: {log_path}")
-
-                except Exception as e:
-                    print(f"❌ Erro ao iniciar simulado_{i+1}: {e}")
-    except Exception as e:
-        print(f"❌ Erro ao processar clients excedentes: {e}")
-
-def stop_server_and_clients():
-    """Interrompe o servidor e todos os clientes simulados"""
-    global server_process, simulated_client_processes
-
-    # Stop server
     if server_process is not None and server_process.poll() is None:
         print(f"🛑 Parando servidor (PID {server_process.pid})...")
         server_process.terminate()
@@ -168,19 +117,6 @@ def stop_server_and_clients():
     else:
         print("⚠️ O servidor não está em execução.")
 
-    # Stop clients
-    print(f"🛑 Encerrando {len(simulated_client_processes)} cliente(s) simulado(s)...")
-    for i, proc in enumerate(simulated_client_processes):
-        if proc.poll() is None:
-            try:
-                proc.terminate()
-                proc.wait(timeout=10)
-                print(f"✅ Cliente simulado_{i+1} encerrado.")
-            except subprocess.TimeoutExpired:
-                print(f"⚠️ Cliente simulado_{i+1} não respondeu. Encerrando à força...")
-                proc.kill()
-    simulated_client_processes = []
-
 def on_message(client, userdata, message):
     """Recebe comandos MQTT e executa as ações correspondentes."""
     command = message.payload.decode().strip()
@@ -189,7 +125,7 @@ def on_message(client, userdata, message):
     if command == "start":
         start_server()
     elif command == "stop":
-        stop_server_and_clients()
+        stop_server()
     else:
         print(f"⚠️ Comando desconhecido: {command}")
 

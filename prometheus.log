@@ -1,48 +1,52 @@
-ts=2025-03-31T10:48:22.286Z caller=main.go:525 level=info msg="No time or size retention was set so using the default time retention" duration=15d
-ts=2025-03-31T10:48:22.287Z caller=main.go:563 level=info msg="Starting Prometheus Server" mode=server version="(version=2.45.3+ds, branch=debian/sid, revision=2.45.3+ds-2ubuntu0.2+esm1)"
-ts=2025-03-31T10:48:22.287Z caller=main.go:568 level=info build_context="(go=go1.22.2, platform=linux/amd64, user=team+pkg-go@tracker.debian.org, date=20250225-16:41:11, tags=unknown)"
-ts=2025-03-31T10:48:22.287Z caller=main.go:569 level=info host_details="(Linux 6.11.0-21-generic #21~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Feb 24 16:52:15 UTC 2 x86_64 marcos-morais (none))"
-ts=2025-03-31T10:48:22.287Z caller=main.go:570 level=info fd_limits="(soft=1048576, hard=1048576)"
-ts=2025-03-31T10:48:22.287Z caller=main.go:571 level=info vm_limits="(soft=unlimited, hard=unlimited)"
-ts=2025-03-31T10:48:22.295Z caller=web.go:504 level=info component=web msg="Start listening for connections" address=0.0.0.0:9090
-ts=2025-03-31T10:48:22.299Z caller=main.go:1004 level=info msg="Starting TSDB ..."
-ts=2025-03-31T10:48:22.302Z caller=tls_config.go:313 level=info component=web msg="Listening on" address=[::]:9090
-ts=2025-03-31T10:48:22.302Z caller=tls_config.go:316 level=info component=web msg="TLS is disabled." http2=false address=[::]:9090
-ts=2025-03-31T10:48:22.302Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1742764233091 maxt=1742767200000 ulid=01JQ3XDY9E8TPRFK7VSS3SEVQE
-ts=2025-03-31T10:48:22.303Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1742682078770 maxt=1742702400000 ulid=01JQ481BZTF35JXY65X1VJ33JJ
-ts=2025-03-31T10:48:22.303Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1742814509316 maxt=1742860800000 ulid=01JQ71DSBQ04K8XGVS51Y4GS8W
-ts=2025-03-31T10:48:22.304Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1742860803095 maxt=1742925600000 ulid=01JQ7RHRJY7M2RC4RZ6FVNKT4R
-ts=2025-03-31T10:48:22.304Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1742925603092 maxt=1742954400000 ulid=01JQ9RYDW9CBPZES9RYT0DTW5J
-ts=2025-03-31T10:48:22.305Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1742994051496 maxt=1743048000000 ulid=01JQC3WKW6EPFZZXEC81SAAFKV
-ts=2025-03-31T10:48:22.306Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743073968090 maxt=1743120000000 ulid=01JQE44XCQZ1JSBHXRWFCN34SH
-ts=2025-03-31T10:48:22.306Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743120000009 maxt=1743163200000 ulid=01JQFFQPQDPN7QE4G5R3G2DPH4
-ts=2025-03-31T10:48:22.309Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743185847263 maxt=1743213600000 ulid=01JQHMD0GD0MWBGNJV0VQ648P9
-ts=2025-03-31T10:48:22.310Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743366884952 maxt=1743372000000 ulid=01JQMPGQVHV8P00JTJ7GMPKEXT
-ts=2025-03-31T10:48:22.313Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743372000014 maxt=1743379200000 ulid=01JQMVCXZXEVBZ0VY0PSQ6QT0F
-ts=2025-03-31T10:48:22.315Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743259951263 maxt=1743285600000 ulid=01JQMVCYF63WHYF3ECGKESEXPX
-ts=2025-03-31T10:48:22.315Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743379200929 maxt=1743386400000 ulid=01JQN28M5JGFFKZ5FCVT5PZJT5
-ts=2025-03-31T10:48:22.384Z caller=head.go:595 level=info component=tsdb msg="Replaying on-disk memory mappable chunks if any"
-ts=2025-03-31T10:48:22.439Z caller=head.go:676 level=info component=tsdb msg="On-disk memory mappable chunks replay completed" duration=54.770183ms
-ts=2025-03-31T10:48:22.439Z caller=head.go:684 level=info component=tsdb msg="Replaying WAL, this may take a while"
-ts=2025-03-31T10:48:22.533Z caller=head_wal.go:425 level=warn component=tsdb msg="Unknown series references" samples=494 exemplars=0 histograms=0 metadata=0
-ts=2025-03-31T10:48:22.533Z caller=head.go:720 level=info component=tsdb msg="WAL checkpoint loaded"
-ts=2025-03-31T10:48:22.549Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=227 maxSegment=232
-ts=2025-03-31T10:48:22.564Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=228 maxSegment=232
-ts=2025-03-31T10:48:22.583Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=229 maxSegment=232
-ts=2025-03-31T10:48:22.599Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=230 maxSegment=232
-ts=2025-03-31T10:48:22.636Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=231 maxSegment=232
-ts=2025-03-31T10:48:22.636Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=232 maxSegment=232
-ts=2025-03-31T10:48:22.636Z caller=head.go:792 level=info component=tsdb msg="WAL replay completed" checkpoint_replay_duration=93.723943ms wal_replay_duration=103.338443ms wbl_replay_duration=172ns total_replay_duration=251.957691ms
-ts=2025-03-31T10:48:22.652Z caller=main.go:1025 level=info fs_type=EXT4_SUPER_MAGIC
-ts=2025-03-31T10:48:22.652Z caller=main.go:1028 level=info msg="TSDB started"
-ts=2025-03-31T10:48:22.652Z caller=main.go:1209 level=info msg="Loading configuration file" filename=Server/prometheus.yml
-ts=2025-03-31T10:48:22.655Z caller=main.go:1246 level=info msg="Completed loading of configuration file" filename=Server/prometheus.yml totalDuration=2.754242ms db_storage=1.497µs remote_storage=1.784µs web_handler=614ns query_engine=1.269µs scrape=614.035µs scrape_sd=421.455µs notify=590.458µs notify_sd=26.933µs rules=1.879µs tracing=11.299µs
-ts=2025-03-31T10:48:22.655Z caller=main.go:989 level=info msg="Server is ready to receive web requests."
-ts=2025-03-31T10:48:22.655Z caller=manager.go:999 level=info component="rule manager" msg="Starting rule manager..."
-ts=2025-03-31T10:48:28.426Z caller=compact.go:523 level=info component=tsdb msg="write block" mint=1743386400000 maxt=1743393600000 ulid=01JQNX2AF2C1H5KWF99K755ETG duration=40.409175ms
-ts=2025-03-31T10:48:28.429Z caller=head.go:1293 level=info component=tsdb msg="Head GC completed" caller=truncateMemory duration=1.935113ms
-ts=2025-03-31T10:48:28.431Z caller=checkpoint.go:100 level=info component=tsdb msg="Creating checkpoint" from_segment=227 to_segment=229 mint=1743393600000
-ts=2025-03-31T10:48:28.452Z caller=head.go:1261 level=info component=tsdb msg="WAL checkpoint complete" first=227 last=229 duration=20.881723ms
-ts=2025-03-31T10:48:28.660Z caller=compact.go:464 level=info component=tsdb msg="compact blocks" count=2 mint=1743366884952 maxt=1743379200000 ulid=01JQNX2AH4EDMEPERWE3CNN13V sources="[01JQMPGQVHV8P00JTJ7GMPKEXT 01JQMVCXZXEVBZ0VY0PSQ6QT0F]" duration=207.393854ms
-ts=2025-03-31T10:48:28.664Z caller=db.go:1617 level=info component=tsdb msg="Deleting obsolete block" block=01JQMPGQVHV8P00JTJ7GMPKEXT
-ts=2025-03-31T10:48:28.667Z caller=db.go:1617 level=info component=tsdb msg="Deleting obsolete block" block=01JQMVCXZXEVBZ0VY0PSQ6QT0F
+ts=2025-04-11T15:23:38.834Z caller=main.go:525 level=info msg="No time or size retention was set so using the default time retention" duration=15d
+ts=2025-04-11T15:23:38.834Z caller=main.go:563 level=info msg="Starting Prometheus Server" mode=server version="(version=2.45.3+ds, branch=debian/sid, revision=2.45.3+ds-2ubuntu0.2+esm1)"
+ts=2025-04-11T15:23:38.834Z caller=main.go:568 level=info build_context="(go=go1.22.2, platform=linux/amd64, user=team+pkg-go@tracker.debian.org, date=20250225-16:41:11, tags=unknown)"
+ts=2025-04-11T15:23:38.834Z caller=main.go:569 level=info host_details="(Linux 6.11.0-21-generic #21~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Feb 24 16:52:15 UTC 2 x86_64 marcos-morais (none))"
+ts=2025-04-11T15:23:38.834Z caller=main.go:570 level=info fd_limits="(soft=1048576, hard=1048576)"
+ts=2025-04-11T15:23:38.834Z caller=main.go:571 level=info vm_limits="(soft=unlimited, hard=unlimited)"
+ts=2025-04-11T15:23:38.845Z caller=web.go:504 level=info component=web msg="Start listening for connections" address=0.0.0.0:9090
+ts=2025-04-11T15:23:38.846Z caller=main.go:1004 level=info msg="Starting TSDB ..."
+ts=2025-04-11T15:23:38.850Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1742925603092 maxt=1742954400000 ulid=01JQ9RYDW9CBPZES9RYT0DTW5J
+ts=2025-04-11T15:23:38.851Z caller=tls_config.go:313 level=info component=web msg="Listening on" address=[::]:9090
+ts=2025-04-11T15:23:38.851Z caller=tls_config.go:316 level=info component=web msg="TLS is disabled." http2=false address=[::]:9090
+ts=2025-04-11T15:23:38.852Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1742994051496 maxt=1743048000000 ulid=01JQC3WKW6EPFZZXEC81SAAFKV
+ts=2025-04-11T15:23:38.857Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743073968090 maxt=1743120000000 ulid=01JQE44XCQZ1JSBHXRWFCN34SH
+ts=2025-04-11T15:23:38.858Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743120000009 maxt=1743163200000 ulid=01JQFFQPQDPN7QE4G5R3G2DPH4
+ts=2025-04-11T15:23:38.858Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743185847263 maxt=1743213600000 ulid=01JQHMD0GD0MWBGNJV0VQ648P9
+ts=2025-04-11T15:23:38.858Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743259951263 maxt=1743285600000 ulid=01JQMVCYF63WHYF3ECGKESEXPX
+ts=2025-04-11T15:23:38.859Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743366884952 maxt=1743379200000 ulid=01JQNX2AH4EDMEPERWE3CNN13V
+ts=2025-04-11T15:23:38.860Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743379200929 maxt=1743444000000 ulid=01JQSJEV335A3RH18E46FKWF0F
+ts=2025-04-11T15:23:38.860Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1744221562792 maxt=1744221600000 ulid=01JRJFP59KKSZTDQK6K3ZVTVC7
+ts=2025-04-11T15:23:38.860Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1744221602792 maxt=1744228800000 ulid=01JRJFP5BCDKJ8P1MG3JRGD8NF
+ts=2025-04-11T15:23:38.860Z caller=repair.go:56 level=info component=tsdb msg="Found healthy block" mint=1743525436090 maxt=1743559200000 ulid=01JRJFP5XM9Y76TMKEJVKMCEGR
+ts=2025-04-11T15:23:38.917Z caller=head.go:595 level=info component=tsdb msg="Replaying on-disk memory mappable chunks if any"
+ts=2025-04-11T15:23:38.924Z caller=head.go:676 level=info component=tsdb msg="On-disk memory mappable chunks replay completed" duration=6.513131ms
+ts=2025-04-11T15:23:38.924Z caller=head.go:684 level=info component=tsdb msg="Replaying WAL, this may take a while"
+ts=2025-04-11T15:23:38.974Z caller=head.go:720 level=info component=tsdb msg="WAL checkpoint loaded"
+ts=2025-04-11T15:23:38.979Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=255 maxSegment=258
+ts=2025-04-11T15:23:38.987Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=256 maxSegment=258
+ts=2025-04-11T15:23:39.187Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=257 maxSegment=258
+ts=2025-04-11T15:23:39.188Z caller=head.go:755 level=info component=tsdb msg="WAL segment loaded" segment=258 maxSegment=258
+ts=2025-04-11T15:23:39.188Z caller=head.go:792 level=info component=tsdb msg="WAL replay completed" checkpoint_replay_duration=50.43384ms wal_replay_duration=213.013907ms wbl_replay_duration=216ns total_replay_duration=270.099053ms
+ts=2025-04-11T15:23:39.192Z caller=main.go:1025 level=info fs_type=EXT4_SUPER_MAGIC
+ts=2025-04-11T15:23:39.192Z caller=main.go:1028 level=info msg="TSDB started"
+ts=2025-04-11T15:23:39.193Z caller=main.go:1209 level=info msg="Loading configuration file" filename=Server/prometheus.yml
+ts=2025-04-11T15:23:39.194Z caller=main.go:1246 level=info msg="Completed loading of configuration file" filename=Server/prometheus.yml totalDuration=1.414951ms db_storage=1.709µs remote_storage=2.178µs web_handler=1.702µs query_engine=1.743µs scrape=532.613µs scrape_sd=86.269µs notify=132.043µs notify_sd=15.174µs rules=2.207µs tracing=41.081µs
+ts=2025-04-11T15:23:39.194Z caller=main.go:989 level=info msg="Server is ready to receive web requests."
+ts=2025-04-11T15:23:39.194Z caller=manager.go:999 level=info component="rule manager" msg="Starting rule manager..."
+ts=2025-04-11T15:23:44.646Z caller=compact.go:514 level=info component=tsdb msg="write block resulted in empty block" mint=1744228800000 maxt=1744236000000 duration=16.724456ms
+ts=2025-04-11T15:23:44.653Z caller=head.go:1293 level=info component=tsdb msg="Head GC completed" caller=truncateMemory duration=2.591969ms
+ts=2025-04-11T15:23:44.654Z caller=checkpoint.go:100 level=info component=tsdb msg="Creating checkpoint" from_segment=255 to_segment=256 mint=1744236000000
+ts=2025-04-11T15:23:44.670Z caller=head.go:1261 level=info component=tsdb msg="WAL checkpoint complete" first=255 last=256 duration=17.015897ms
+ts=2025-04-11T15:24:26.424Z caller=main.go:839 level=warn msg="Received SIGTERM, exiting gracefully..."
+ts=2025-04-11T15:24:26.424Z caller=main.go:863 level=info msg="Stopping scrape discovery manager..."
+ts=2025-04-11T15:24:26.425Z caller=main.go:859 level=info msg="Scrape discovery manager stopped"
+ts=2025-04-11T15:24:26.424Z caller=main.go:877 level=info msg="Stopping notify discovery manager..."
+ts=2025-04-11T15:24:26.425Z caller=manager.go:1013 level=info component="rule manager" msg="Stopping rule manager..."
+ts=2025-04-11T15:24:26.426Z caller=manager.go:1023 level=info component="rule manager" msg="Rule manager stopped"
+ts=2025-04-11T15:24:26.426Z caller=main.go:914 level=info msg="Stopping scrape manager..."
+ts=2025-04-11T15:24:26.426Z caller=main.go:873 level=info msg="Notify discovery manager stopped"
+ts=2025-04-11T15:24:26.430Z caller=main.go:906 level=info msg="Scrape manager stopped"
+ts=2025-04-11T15:24:26.436Z caller=notifier.go:603 level=info component=notifier msg="Stopping notification manager..."
+ts=2025-04-11T15:24:26.437Z caller=main.go:1135 level=info msg="Notifier manager stopped"
+ts=2025-04-11T15:24:26.437Z caller=main.go:1147 level=info msg="See you next time!"

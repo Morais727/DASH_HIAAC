@@ -36,7 +36,7 @@ function MetricChart({ title, endpoint, label }) {
     labels: timestamps,
     datasets: [
       {
-        label: label,
+        label: "",
         data: data,
         borderColor: "blue",
         backgroundColor: "rgba(0,0,255,0.1)",
@@ -47,9 +47,15 @@ function MetricChart({ title, endpoint, label }) {
   }), [data, timestamps, label]);
 
   return (
-    <Card sx={{ width: 400, height: 350 }}>
+    <Card sx={{ width: 300, height: 300 }}>
       <CardContent>
-        <Typography variant="h6">{title}</Typography>
+      <Typography
+      variant="h6"
+      align="center"
+      sx={{ width: "100%" }}
+    >
+      {title}
+    </Typography>
         <div style={{ height: "250px" }}>
           <Line
             data={chartData}
@@ -57,7 +63,22 @@ function MetricChart({ title, endpoint, label }) {
               responsive: true,
               maintainAspectRatio: false,
               elements: { point: { radius: 2 } },
-              scales: { x: { display: true }, y: { display: true, beginAtZero: true } },
+              scales: {
+                x: {
+                  ticks: { display: false },
+                  grid: { drawTicks: false }
+                },
+                y: {
+                  ticks: { display: true },
+                  grid: { drawTicks: false }
+                }
+              },
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+                          
               animation: { duration: 0 },
             }}
           />
