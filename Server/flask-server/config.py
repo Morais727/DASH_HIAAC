@@ -1,0 +1,10 @@
+PROMETHEUS_URL = "http://100.127.13.111:9090/api/v1/query"
+ALLOWED_IPS = ["100.127.13.111"]
+FLASK_HOST = "0.0.0.0"
+FLASK_PORT = 5150
+UPLOAD_FOLDER = "/mnt/fl_clients/uploads"
+ALLOWED_EXTENSIONS = {"py", "csv", "env", "txt"}
+MQTT_BROKER = "100.127.13.111"
+MQTT_PORT = 1883
+MQTT_TOPIC = "fl/training"
+RASP_COUNT = 3

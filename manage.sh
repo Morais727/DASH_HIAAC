@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Caminhos dos scripts Python e diretórios
+# Caminhos dos scripts Python 
 DASHBOARD_DIR="Server/federated-dashboard"
-FLASK_SCRIPT="Server/flask-server/server_flask.py"
+FLASK_SCRIPT="Server/flask-server/app.py" 
 MQTT_SCRIPT="Server/flask-server/server_mqtt_listener.py"
 SYNC_SCRIPT="./sync_directories.py"
 SURPLUS_LISTENER="Client/surplus_mqtt_listener.py"
 PROMETHEUS_CMD="/usr/bin/prometheus"
 PROMETHEUS_CONF="Server/prometheus.yml"
 
-# Função para iniciar tudo
+# iniciar tudo
 start_services() {
     echo "🚀 Iniciando todos os serviços em segundo plano..."
 
@@ -17,7 +17,7 @@ start_services() {
     echo "🟢 Dashboard iniciado."
 
     nohup python3 "$FLASK_SCRIPT" > flask_server.log 2>&1 &
-    echo "🟢 Flask server iniciado."
+    echo "🟢 Flask app iniciado."
 
     nohup python3 "$MQTT_SCRIPT" > mqtt_listener.log 2>&1 &
     echo "🟢 MQTT Listener iniciado."
@@ -34,7 +34,7 @@ start_services() {
     echo "✅ Todos os serviços foram iniciados."
 }
 
-# Função para parar tudo
+# parar tudo
 stop_services() {
     echo "🛑 Parando todos os serviços..."
 
@@ -43,7 +43,7 @@ stop_services() {
     sleep 1
     pgrep -f "dashboard" && pkill -9 -f "dashboard"
 
-    echo "⏹️ Parando Flask Server..."
+    echo "⏹️ Parando Flask App..."
     pkill -f "$FLASK_SCRIPT"
     sleep 1
     pgrep -f "$FLASK_SCRIPT" && pkill -9 -f "$FLASK_SCRIPT"
@@ -68,19 +68,19 @@ stop_services() {
     sleep 1
     pgrep -f "$SYNC_SCRIPT" && pkill -9 -f "$SYNC_SCRIPT"
 
-    pkill  "server.py"
+    pkill "server.py"
     sleep 1
-    pgrep  "server.py" && pkill -9 "server.py"
+    pgrep "server.py" && pkill -9 "server.py"
 
     echo "✅ Todos os serviços foram encerrados com sucesso."
 }
 
-# Função para checar status (extra)
+# checar status
 status_services() {
     echo "📊 Status dos serviços:"
     
     pgrep -fl "dashboard" || echo "❌ Dashboard não está rodando."
-    pgrep -fl "$FLASK_SCRIPT" || echo "❌ Flask server não está rodando."
+    pgrep -fl "$FLASK_SCRIPT" || echo "❌ Flask app não está rodando."
     pgrep -fl "$MQTT_SCRIPT" || echo "❌ MQTT Listener não está rodando."
     pgrep -fl "$SURPLUS_LISTENER" || echo "❌ Surplus MQTT Listener não está rodando."
     pgrep -fl "$PROMETHEUS_CMD" || echo "❌ Prometheus não está rodando."
