@@ -38,3 +38,15 @@ ts=2025-04-23T17:47:11.118Z caller=compact.go:514 level=info component=tsdb msg=
 ts=2025-04-23T17:47:11.121Z caller=head.go:1293 level=info component=tsdb msg="Head GC completed" caller=truncateMemory duration=2.515859ms
 ts=2025-04-23T17:47:11.121Z caller=checkpoint.go:100 level=info component=tsdb msg="Creating checkpoint" from_segment=261 to_segment=262 mint=1744394400000
 ts=2025-04-23T17:47:11.297Z caller=head.go:1261 level=info component=tsdb msg="WAL checkpoint complete" first=261 last=262 duration=175.90928ms
+ts=2025-04-23T17:50:37.666Z caller=main.go:839 level=warn msg="Received SIGTERM, exiting gracefully..."
+ts=2025-04-23T17:50:37.667Z caller=main.go:863 level=info msg="Stopping scrape discovery manager..."
+ts=2025-04-23T17:50:37.667Z caller=main.go:877 level=info msg="Stopping notify discovery manager..."
+ts=2025-04-23T17:50:37.667Z caller=manager.go:1013 level=info component="rule manager" msg="Stopping rule manager..."
+ts=2025-04-23T17:50:37.667Z caller=manager.go:1023 level=info component="rule manager" msg="Rule manager stopped"
+ts=2025-04-23T17:50:37.667Z caller=main.go:859 level=info msg="Scrape discovery manager stopped"
+ts=2025-04-23T17:50:37.667Z caller=main.go:873 level=info msg="Notify discovery manager stopped"
+ts=2025-04-23T17:50:37.667Z caller=main.go:914 level=info msg="Stopping scrape manager..."
+ts=2025-04-23T17:50:37.667Z caller=main.go:906 level=info msg="Scrape manager stopped"
+ts=2025-04-23T17:50:37.671Z caller=notifier.go:603 level=info component=notifier msg="Stopping notification manager..."
+ts=2025-04-23T17:50:37.671Z caller=main.go:1135 level=info msg="Notifier manager stopped"
+ts=2025-04-23T17:50:37.671Z caller=main.go:1147 level=info msg="See you next time!"
