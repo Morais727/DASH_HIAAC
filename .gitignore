@@ -10,4 +10,5 @@ env/
 Server_env/
 Surplus_env/
 *.pyc
-análise sistemática.txt
+análise_sistemática.txt
+.pytest_cache

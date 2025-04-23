@@ -1,40 +1,47 @@
 #!/bin/bash
 
-# Caminhos dos scripts Python 
+# Caminhos dos scripts Python
 DASHBOARD_DIR="Server/federated-dashboard"
-FLASK_SCRIPT="Server/flask-server/app.py" 
+FLASK_SCRIPT="Server/flask-server/app.py"
 MQTT_SCRIPT="Server/flask-server/server_mqtt_listener.py"
 SYNC_SCRIPT="./sync_directories.py"
 SURPLUS_LISTENER="Client/surplus_mqtt_listener.py"
 PROMETHEUS_CMD="/usr/bin/prometheus"
 PROMETHEUS_CONF="Server/prometheus.yml"
 
-# iniciar tudo
+# Diretório central de logs
+LOG_DIR="logs"
+mkdir -p "$LOG_DIR"
+
+# Iniciar todos os serviços
 start_services() {
     echo "🚀 Iniciando todos os serviços em segundo plano..."
 
-    nohup npm run dev --prefix "$DASHBOARD_DIR" > dashboard.log 2>&1 &
+    # Limpa logs antigos
+    rm -f "$LOG_DIR"/*.log
+
+    nohup npm run dev --prefix "$DASHBOARD_DIR" > "$LOG_DIR/dashboard.log" 2>&1 &
     echo "🟢 Dashboard iniciado."
 
-    nohup python3 "$FLASK_SCRIPT" > flask_server.log 2>&1 &
+    nohup python3 "$FLASK_SCRIPT" > "$LOG_DIR/flask_server.log" 2>&1 &
     echo "🟢 Flask app iniciado."
 
-    nohup python3 "$MQTT_SCRIPT" > mqtt_listener.log 2>&1 &
+    nohup python3 "$MQTT_SCRIPT" > "$LOG_DIR/mqtt_listener.log" 2>&1 &
     echo "🟢 MQTT Listener iniciado."
 
-    nohup python3 "$SURPLUS_LISTENER" > surplus_listener.log 2>&1 &
+    nohup python3 "$SURPLUS_LISTENER" > "$LOG_DIR/surplus_listener.log" 2>&1 &
     echo "🟢 Surplus MQTT Listener iniciado."
 
-    nohup sudo $PROMETHEUS_CMD --config.file=$PROMETHEUS_CONF > prometheus.log 2>&1 &
+    nohup sudo $PROMETHEUS_CMD --config.file=$PROMETHEUS_CONF > "$LOG_DIR/prometheus.log" 2>&1 &
     echo "🟢 Prometheus iniciado."
 
-    nohup python3 "$SYNC_SCRIPT" > sync.log 2>&1 &
+    nohup python3 "$SYNC_SCRIPT" > "$LOG_DIR/sync.log" 2>&1 &
     echo "🟢 Sincronizador de diretórios iniciado."
 
     echo "✅ Todos os serviços foram iniciados."
 }
 
-# parar tudo
+# Parar todos os serviços
 stop_services() {
     echo "🛑 Parando todos os serviços..."
 
@@ -75,7 +82,7 @@ stop_services() {
     echo "✅ Todos os serviços foram encerrados com sucesso."
 }
 
-# checar status
+# Verificar status dos serviços
 status_services() {
     echo "📊 Status dos serviços:"
     
