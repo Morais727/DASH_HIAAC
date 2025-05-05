@@ -36,7 +36,7 @@ class ClienteFlower(fl.client.NumPyClient):
 
         dataset_manager = ManageDatasets(self.cid)
 
-        print(f"📥 Carregando dataset: {dataset_name} | non_iid={non_iid} | n_clients={num_clients} | alpha={alpha}")
+        print(f"Carregando dataset: {dataset_name} | non_iid={non_iid} | n_clients={num_clients} | alpha={alpha}")
 
         try:
             data = dataset_manager.select_dataset(
@@ -67,19 +67,19 @@ class ClienteFlower(fl.client.NumPyClient):
 
     def cria_modelo(self):
         model_type = os.environ.get("MODEL_TYPE", "DNN").upper()
+        hf_model_name = os.environ.get("HF_MODEL_URL", "").strip()
         num_classes = len(set(self.y_treino))
         input_shape = self.x_treino.shape
 
         creator = ModelCreation()
 
         if model_type == "CNN":
-            print("📦 Criando modelo CNN")
             return creator.create_CNN(input_shape, num_classes)
         elif model_type == "LOGISTICREGRESSION":
-            print("📦 Criando modelo Logistic Regression")
             return creator.create_LogisticRegression(input_shape, num_classes)
+        elif model_type == "CUSTOM_HF_MODEL" and hf_model_name:
+            return creator.create_HuggingFace(hf_model_name, input_shape, num_classes)
         else:
-            print("📦 Criando modelo DNN (padrão)")
             return creator.create_DNN(input_shape, num_classes)
 
     def get_parameters(self, config):

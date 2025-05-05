@@ -1,14 +1,42 @@
+import os
 import tensorflow as tf
 from keras.models import Sequential
+from transformers import TFAutoModel, AutoTokenizer
 from keras.layers import Conv1D, Conv2D, MaxPooling1D, Flatten, MaxPool2D, Dense, InputLayer, BatchNormalization, Dropout
 
-#from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression
 import numpy as np
 
 import logging
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 
 class ModelCreation():
+
+	def create_HuggingFace(self, model_name, input_shape=None, num_classes=None):
+		local_dir = os.path.join("/mnt/fl_clients/huggingface_models", model_name.replace("/", "__"))
+
+		if os.path.exists(local_dir):
+			print(f"Carregando modelo salvo localmente em {local_dir}")
+		else:
+			print(f"Baixando modelo Hugging Face: {model_name}")
+			try:
+				tokenizer = AutoTokenizer.from_pretrained(model_name)
+				model = TFAutoModel.from_pretrained(model_name)
+				os.makedirs(local_dir, exist_ok=True)
+				tokenizer.save_pretrained(local_dir)
+				model.save_pretrained(local_dir)
+			except Exception as e:
+				print(f"❌ Erro ao baixar modelo: {e}")
+				raise e
+
+		# Carrega modelo salvo (para garantir compatibilidade local)
+		model = TFAutoModel.from_pretrained(local_dir)
+
+		# Compila modelo com configuração genérica (o usuário pode customizar depois)
+		model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+		return model
+
 
 	def create_DNN(self, input_shape, num_classes):
 		model = tf.keras.models.Sequential()

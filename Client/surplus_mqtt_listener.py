@@ -41,7 +41,7 @@ def start_clients():
     global client_processes
 
     if any(p.poll() is None for p in client_processes):
-        log("⚠️ Clientes já estão em execução.")
+        log("Clientes já estão em execução.")
         return
 
     flags_path = "/mnt/fl_clients/uploads/upload_flags.json"
@@ -57,33 +57,33 @@ def start_clients():
 
             if flags.get("client", False) and os.path.exists("/mnt/fl_clients/uploads/client.py"):
                 script_path = "/mnt/fl_clients/uploads/client.py"
-                log("📁 Usando client.py enviado via upload.")
+                log("Usando client.py enviado via upload.")
             else:
                 script_path = "/mnt/fl_clients/Client/client_surplus.py"
-                log("📁 Usando client_surplus.py como padrão.")
+                log("Usando client_surplus.py como padrão.")
             
             if flags.get("envClient", False) and os.path.exists("/mnt/fl_clients/uploads/config_cliente.env"):
                 env_path = "/mnt/fl_clients/uploads/config_cliente.env"
-                log("🧪 Usando .env enviado via upload.")
+                log("Usando .env enviado via upload.")
             else:
-                log("🧪 Usando .env padrão.")
+                log("Usando .env padrão.")
 
             surplus_clients = int(flags.get("surplus_clients", 1))
         else:
-            log("⚠️ upload_flags.json não encontrado. Usando configurações padrão.")
+            log("upload_flags.json não encontrado. Usando configurações padrão.")
             script_path = "/mnt/fl_clients/Client/client_surplus.py"
     except Exception as e:
-        log(f"⚠️ Erro ao ler upload_flags.json: {e}. Usando valores padrão.", "warning")
+        log(f"Erro ao ler upload_flags.json: {e}. Usando valores padrão.", "warning")
         script_path = "/mnt/fl_clients/Client/client_surplus.py"
 
 
     # === Verificação dos caminhos ===
     if not os.path.exists(script_path):
-        log(f"❌ Script client.py não encontrado: {script_path}", "error")
+        log(f"Script client.py não encontrado: {script_path}", "error")
         return
 
     if not os.path.exists(VENV_PYTHON):
-        log(f"❌ Python do ambiente virtual não encontrado: {VENV_PYTHON}", "error")
+        log(f"Python do ambiente virtual não encontrado: {VENV_PYTHON}", "error")
         return
 
     # === Ambiente limpo com variáveis do .env ===
@@ -92,20 +92,20 @@ def start_clients():
     if os.path.exists(env_path):
         try:
             with open(env_path) as f:
-                log(f"📦 Carregando variáveis de: {env_path}")
+                log(f"Carregando variáveis de: {env_path}")
                 for line in f:
                     if "=" in line and not line.strip().startswith("#"):
                         key, value = line.strip().split("=", 1)
                         env[key] = value
                         log(f"  • {key} = {value}")
         except Exception as e:
-            log(f"⚠️ Erro ao carregar .env: {e}", "warning")
+            log(f"Erro ao carregar .env: {e}", "warning")
 
     # === Inicialização dos subprocessos ===
     client_processes.clear()
     for i in range(surplus_clients):
         try:
-            log(f"🚀 Iniciando cliente federado {i + 1}/{surplus_clients} com script: {script_path}")
+            log(f"Iniciando cliente federado {i + 1}/{surplus_clients} com script: {script_path}")
             client_log = open(CLIENT_LOG_FILE, "a")
             proc = subprocess.Popen(
                 [VENV_PYTHON, script_path],
@@ -114,54 +114,54 @@ def start_clients():
                 stderr=client_log
             )
             client_processes.append(proc)
-            log(f"✅ Cliente {i + 1} iniciado com PID {proc.pid}")
+            log(f"Cliente {i + 1} iniciado com PID {proc.pid}")
         except Exception as e:
-            log(f"❌ Falha ao iniciar cliente {i + 1}: {e}", "error")
+            log(f"Falha ao iniciar cliente {i + 1}: {e}", "error")
 
 def stop_clients():
     """Encerra todos os clientes em execução"""
     global client_processes
 
     if not client_processes:
-        log("⚠️ Nenhum cliente está em execução.")
+        log("Nenhum cliente está em execução.")
         return
 
     for i, proc in enumerate(client_processes, start=1):
         if proc.poll() is None:
-            log(f"🛑 Encerrando cliente {i} (PID {proc.pid})...")
+            log(f"Encerrando cliente {i} (PID {proc.pid})...")
             proc.terminate()
             try:
                 proc.wait(timeout=10)
-                log(f"✅ Cliente {i} encerrado com sucesso.")
+                log(f"Cliente {i} encerrado com sucesso.")
             except subprocess.TimeoutExpired:
-                log(f"⚠️ Cliente {i} não respondeu ao término. Forçando kill...")
+                log(f"Cliente {i} não respondeu ao término. Forçando kill...")
                 proc.kill()
-                log(f"✅ Cliente {i} morto à força.")
+                log(f"Cliente {i} morto à força.")
         else:
-            log(f"⚠️ Cliente {i} já estava parado.")
+            log(f"Cliente {i} já estava parado.")
 
     client_processes.clear()
 
 def on_message(client, userdata, message):
     command = message.payload.decode().strip()
-    log(f"📥 Mensagem recebida: {command}")
+    log(f"Mensagem recebida: {command}")
 
     if command == "start":
         start_clients()
     elif command == "stop":
         stop_clients()
     else:
-        log(f"⚠️ Comando desconhecido: {command}")
+        log(f"Comando desconhecido: {command}")
 
 def on_disconnect(client, userdata, rc):
-    log("🔌 Conexão MQTT perdida! Tentando reconectar...")
+    log("Conexão MQTT perdida! Tentando reconectar...")
     while True:
         try:
             client.reconnect()
-            log("✅ Reconectado ao broker MQTT!")
+            log("Reconectado ao broker MQTT!")
             break
         except Exception as e:
-            log(f"❌ Falha ao reconectar: {e}. Tentando novamente em 5s...", "error")
+            log(f"Falha ao reconectar: {e}. Tentando novamente em 5s...", "error")
             time.sleep(5)
 
 # === Inicialização MQTT ===
@@ -174,16 +174,16 @@ def monitor_clients():
     while True:
         time.sleep(30)
         active = sum(1 for p in client_processes if p.poll() is None)
-        log(f"🔍 Monitor: {active} cliente(s) ainda ativos.")
+        log(f"Monitor: {active} cliente(s) ainda ativos.")
 
 monitor_thread = threading.Thread(target=monitor_clients, daemon=True)
 monitor_thread.start()
 
 try:
-    log(f"🔗 Conectando ao broker MQTT {MQTT_BROKER}:{MQTT_PORT}...")
+    log(f"Conectando ao broker MQTT {MQTT_BROKER}:{MQTT_PORT}...")
     client.connect(MQTT_BROKER, MQTT_PORT)
     client.subscribe(MQTT_TOPIC)
-    log(f"📡 Inscrito no tópico '{MQTT_TOPIC}'. Aguardando comandos...")
+    log(f"Inscrito no tópico '{MQTT_TOPIC}'. Aguardando comandos...")
     client.loop_forever()
 except Exception as e:
-    log(f"❌ Erro ao conectar ao MQTT: {e}", "error")
+    log(f"Erro ao conectar ao MQTT: {e}", "error")

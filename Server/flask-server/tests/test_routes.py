@@ -2,7 +2,7 @@ import sys
 import os
 import pytest
 
-# 🔧 Garante que o diretório `flask-server/` esteja no PYTHONPATH
+# Garante que o diretório `flask-server/` esteja no PYTHONPATH
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from app import app as flask_app

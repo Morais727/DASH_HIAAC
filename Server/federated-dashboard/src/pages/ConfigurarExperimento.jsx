@@ -73,10 +73,10 @@ export default function ConfigurarExperimento() {
 
     try {
       await Promise.all(uploadPromises);
-      setUploadStatus("✅ Arquivos enviados com sucesso!");
+      setUploadStatus("Arquivos enviados com sucesso!");
       localStorage.setItem("uploadedFlags", JSON.stringify(flags));
 
-      // ✅ Salvar flags no backend após uploads bem-sucedidos
+      // Salvar flags no backend após uploads bem-sucedidos
       await fetch("http://100.127.13.111:5150/save-flags", {
         method: "POST",
         headers: {
@@ -89,7 +89,7 @@ export default function ConfigurarExperimento() {
       navigate("/metricas");
     } catch (error) {
       console.error(error);
-      setUploadStatus("❌ Falha ao enviar um ou mais arquivos.");
+      setUploadStatus("Falha ao enviar um ou mais arquivos.");
       setDialogOpen(false);
     }
   };
@@ -129,11 +129,11 @@ export default function ConfigurarExperimento() {
             to="/padrao"
             sx={{ mt: 2, mb: 2 }}
           >
-            🔙 Voltar
+            Voltar
           </Button>
 
           <Typography variant="h4" mb={3}>
-            🛠️ Configuração Avançada do Experimento
+            Configuração Avançada do Experimento
           </Typography>
 
           <Box
@@ -180,7 +180,7 @@ export default function ConfigurarExperimento() {
                 />
                 {files[type] ? (
                   <Typography variant="body2" color="green">
-                    ✅ {files[type].name} selecionado
+                    {files[type].name} selecionado
                   </Typography>
                 ) : (
                   <Typography variant="body2" color="gray">
@@ -197,7 +197,7 @@ export default function ConfigurarExperimento() {
             sx={{ mt: 4 }}
             onClick={handleSubmit}
           >
-            💾 Salvar Configurações
+            Salvar Configurações
           </Button>
 
           <Typography variant="body1" mt={2}>
@@ -208,13 +208,13 @@ export default function ConfigurarExperimento() {
 
       {/* Caixa de diálogo de confirmação */}
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-        <DialogTitle>📦 Arquivos selecionados para envio</DialogTitle>
+        <DialogTitle>Arquivos selecionados para envio</DialogTitle>
         <DialogContent>
           <List dense>
             {Object.entries(files).map(([key, file]) => (
               <ListItem key={key}>
                 <ListItemText
-                  primary={`${key.toUpperCase()}: ${file?.name || "❌ Não selecionado"}`}
+                  primary={`${key.toUpperCase()}: ${file?.name || "Não selecionado"}`}
                 />
               </ListItem>
             ))}

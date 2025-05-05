@@ -18,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import background from "../assets/hiaac.png";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { getApiUrl } from "../utils/apiConfig";
 
 export default function ConfigurarClientes() {
   const [files, setFiles] = useState({});
@@ -48,19 +49,19 @@ export default function ConfigurarClientes() {
   const confirmAndUpload = async () => {
     try {
       // Envia IPs ao backend
-      await fetch("http://100.127.13.111:5150/save-ips", {
+      await fetch(getApiUrl("/save-ips"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ips: ipList }),
       });
 
-      setUploadStatus("✅ IP(s) enviados com sucesso!");
+      setUploadStatus("IP(s) enviados com sucesso!");
       setDialogOpen(false);
       navigate("/metricas");
 
     } catch (error) {
       console.error(error);
-      setUploadStatus("❌ Falha ao enviar os IPs.");
+      setUploadStatus("Falha ao enviar os IPs.");
       setDialogOpen(false);
     }
   };
@@ -150,12 +151,12 @@ export default function ConfigurarClientes() {
 
       {/* Diálogo de confirmação */}
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-        <DialogTitle>📦 IPs informados</DialogTitle>
+        <DialogTitle>IPs informados</DialogTitle>
         <DialogContent>
           <List dense>
             {ipList.map((ip, index) => (
               <ListItem key={index}>
-                <ListItemText primary={`🖧 IP ${index + 1}: ${ip || "❌ Não informado"}`} />
+                <ListItemText primary={`IP ${index + 1}: ${ip || "❌ Não informado"}`} />
               </ListItem>
             ))}
           </List>
@@ -175,3 +176,4 @@ export default function ConfigurarClientes() {
     </Box>
   );
 }
+

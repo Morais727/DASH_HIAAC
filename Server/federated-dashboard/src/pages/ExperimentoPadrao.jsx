@@ -18,7 +18,9 @@ import background from "../assets/hiaac.png"; //
 
 export default function RodarExperimento() {
   const [modelo, setModelo] = useState("DNN");
+  const [huggingFaceModelUrl, setHuggingFaceModelUrl] = useState("");
   const [dataset, setDataset] = useState("MNIST");
+  const [customDatasetUrl, setCustomDatasetUrl] = useState("");
   const [nonIID, setNonIID] = useState(false);
   const [dirichletAlpha, setDirichletAlpha] = useState(0.5);
   const [numClients, setNumClients] = useState(2);
@@ -26,26 +28,81 @@ export default function RodarExperimento() {
   const [epochs, setEpochs] = useState(10);
   const [batchSize, setBatchSize] = useState(32);
   const [status, setStatus] = useState("");
-
+  const [tipoCliente, setTipoCliente] = useState("REAIS"); // "REAIS" ou "SIMULADOS"
+  const surplusClients = tipoCliente === "SIMULADOS" ? numClients : (numClients > 3 ? numClients - 3 : 0);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
-    if (
+  const handleSubmit = async () => 
+  {
+    setStatus(""); // limpa status anterior
+
+    // Validação dos parâmetros numéricos
+    if 
+    (
       epochs < 1 || epochs > 100 ||
       batchSize < 1 || batchSize > 1024 ||
       numClients < 1 || numClients > 100 ||
       numRounds < 1 || numRounds > 1000 ||
       (nonIID && (dirichletAlpha < 0.01 || dirichletAlpha > 1))
-    ) {
+    ) 
+    {
       setStatus("❌ Valores inválidos: verifique os limites.");
       return;
     }
 
+    // // Validação da URL do modelo do Hugging Face do 
+    // if (modelo === "HUGGINGFACE") {
+    //   if (!huggingFaceModelUrl || !huggingFaceModelUrl.startsWith("https://huggingface.co/")) {
+    //     setStatus("❌ Forneça um link válido do Hugging Face para o modelo.");
+    //     return;
+    //   }
+
+    //   try {
+    //     const response = await fetch(huggingFaceModelUrl, { method: "HEAD" });
+    //     if (!response.ok) {
+    //       setStatus("❌ O link do modelo não está acessível (erro HTTP " + response.status + ").");
+    //       return;
+    //     }
+    //   } catch (err) {
+    //     console.error("Erro ao verificar link:", err);
+    //     setStatus("❌ Não foi possível verificar o link do modelo.");
+    //     return;
+    //   }
+    // }
+
+    // // Validação da URL do dataset do Hugging Face
+    // if (dataset === "CUSTOM_HF_DATASET") 
+    // {
+    //   if (!customDatasetUrl || !customDatasetUrl.startsWith("https://datasets-server.huggingface.co/")) 
+    //     {
+    //     setStatus("❌ Forneça um link válido do Hugging Face para o dataset.");
+    //     return;
+    //   }
+
+    //   try 
+    //   {
+    //     const response = await fetch(customDatasetUrl, { method: "HEAD" });
+    //     if (!response.ok) 
+    //     {
+    //       setStatus("❌ O link do dataset não está acessível (erro HTTP " + response.status + ").");
+    //       return;
+    //     }
+    //   } catch (err)
+    //   {
+    //     console.error("Erro ao verificar link:", err);
+    //     setStatus("❌ Não foi possível verificar o link do dataset.");
+    //     return;
+    //   }
+    // }
+
     const clientEnv = `
+      CLIENT_TYPE=${tipoCliente}
       MODEL_TYPE=${modelo}
+      ${modelo === "CUSTOM_HF_MODEL" ? `HF_MODEL_URL=${huggingFaceModelUrl}` : ""}
       EPOCHS=${epochs}
       BATCH_SIZE=${batchSize}
       DATASET=${dataset}
+      ${dataset === "CUSTOM_HF_DATASET" ? `HF_DATASET_URL=${customDatasetUrl}` : ""}
       NON_IID=${nonIID}
       NUM_CLIENTS=${numClients}
       ${nonIID ? `DIRICHLET_ALPHA=${dirichletAlpha}` : ""}
@@ -54,8 +111,6 @@ export default function RodarExperimento() {
     const serverEnv = `
       NUM_ROUNDS=${numRounds}
     `;
-
-    const surplusClients = numClients > 3 ? numClients - 3 : 0;
 
     const flags = {
       surplus_clients: surplusClients
@@ -84,12 +139,12 @@ export default function RodarExperimento() {
         body: JSON.stringify(flags),
       });
 
-      // Inicia os clientes
-      await fetch("http://100.127.13.111:5150/start-simulados", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ num_clients: numClients }),
-      });
+      // // Inicia os clientes
+      // await fetch("http://100.127.13.111:5150/start-simulados", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ num_clients: numClients }),
+      // });
 
       navigate("/metricas");
     } catch (err) {
@@ -133,11 +188,11 @@ export default function RodarExperimento() {
             to="/"
             sx={{ mb: 2 }}
           >
-            🔙 Voltar ao menu
+            Voltar ao menu
           </Button>
 
           <Typography variant="h4" mb={3} color="white">
-            ⚙️ Configurar e Rodar Experimento
+            Configurar e Rodar Experimento
           </Typography>
         </Box>
 
@@ -165,9 +220,34 @@ export default function RodarExperimento() {
                 <MenuItem value="CNN">CNN</MenuItem>
                 <MenuItem value="DNN">DNN</MenuItem>
                 <MenuItem value="LOGISTICREGRESSION">Logistic Regression</MenuItem>
+                <MenuItem value="CUSTOM_HF_MODEL">Importar do Hugging Face</MenuItem>
               </Select>
             </FormControl>
           </Grid>
+          {modelo === "CUSTOM_HF_MODEL" && (
+            <Grid item xs={12} sm={12} md={12}>
+              <TextField
+                label="Repositório do modelo"
+                type="url"
+                value={huggingFaceModelUrl}
+                onChange={(e) => setHuggingFaceModelUrl(e.target.value)}
+                fullWidth
+                sx={{ backgroundColor: "white" }}
+                InputLabelProps={{
+                  sx: {
+                    color: "black",
+                    fontWeight: "bold",
+                    backgroundColor: "white",
+                    px: 0.5,
+                    borderRadius: 1,
+                    zIndex: 1,
+                    width: "fit-content",
+                  },
+                }}
+              />
+            </Grid>
+          )}
+
 
           <Grid item xs={12} sm={6} md={4}>
             <FormControl fullWidth>
@@ -195,10 +275,35 @@ export default function RodarExperimento() {
                 <MenuItem value="UCIHAR">UCI-HAR</MenuItem>
                 <MenuItem value="MotionSense">MotionSense</MenuItem>
                 <MenuItem value="ExtraSensory">ExtraSensory</MenuItem>
+                <MenuItem value="CUSTOM_HF_DATASET">Importar do Hugging Face</MenuItem>
               </Select>
             </FormControl>
           </Grid>
+          {dataset === "CUSTOM_HF_DATASET" && (
+            <Grid item xs={12}>
+              <TextField
+                label="Repositório do Dataset"
+                type="url"
+                value={customDatasetUrl}
+                onChange={(e) => setCustomDatasetUrl(e.target.value)}
+                fullWidth
+                sx={{ backgroundColor: "white" }}
+                InputLabelProps={{
+                  sx: {
+                    color: "black",
+                    fontWeight: "bold",
+                    backgroundColor: "white",
+                    px: 0.5,
+                    borderRadius: 1,
+                    zIndex: 1,
+                    width: "fit-content",
+                  },
+                }}
+              />
+            </Grid>
+          )}
 
+          
           <Grid item xs={12} sm={6} md={4}>
             <TextField
               label="Nº de Clientes"
@@ -234,15 +339,16 @@ export default function RodarExperimento() {
             />
           </Grid>
 
-          {numClients > 3 && (
+          {numClients > 3 && tipoCliente === "REAIS" && (
             <Grid item xs={12}>
               <Alert severity="warning" sx={{ mt: 1 }}>
-                ⚠️ Número de PIs disponíveis é 3. Os demais clientes serão executados localmente.
-                <br />
+                Número de PIs disponíveis é 3.<br />
+                Os demais clientes serão executados localmente. <br />
                 Certifique-se de que sua máquina possui capacidade para suportar a carga adicional.
               </Alert>
             </Grid>
           )}
+
 
           <Grid item xs={12} sm={6} md={4}>
             <TextField
@@ -382,8 +488,8 @@ export default function RodarExperimento() {
             </Grid>
           )}
         </Grid>
-
-        <Box mt={3}>
+                
+        <Box mt={3} display="flex" justifyContent="center" gap={4}>
           <FormControlLabel
             control={
               <Switch
@@ -393,6 +499,18 @@ export default function RodarExperimento() {
               />
             }
             label="Distribuição Não-IID"
+            sx={{ color: "white", fontWeight: "bold" }}
+          />
+
+          <FormControlLabel
+            control={
+              <Switch
+                checked={tipoCliente === "SIMULADOS"}
+                onChange={(e) => setTipoCliente(e.target.checked ? "SIMULADOS" : "REAIS")}
+                color="primary"
+              />
+            }
+            label={tipoCliente === "SIMULADOS" ? "Clientes Simulados" : "Clientes Reais"}
             sx={{ color: "white", fontWeight: "bold" }}
           />
         </Box>
@@ -411,13 +529,13 @@ export default function RodarExperimento() {
               }
             }}
           >
-            📁 Enviar arquivos
+            Enviar arquivos
           </Button>
         </Box>
 
         <Box mt={4}>
           <Button variant="contained" onClick={handleSubmit}>
-            💾 Salvar Configurações
+            Salvar Configurações
           </Button>
         </Box>
 

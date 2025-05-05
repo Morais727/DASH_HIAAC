@@ -119,7 +119,7 @@ function App() {
             to="/"
             sx={{ mt: 2, mb: -1 }}
             >
-              🔙 Voltar ao menu
+              Voltar ao menu
             </Button>
 
           <Box mt={2}>
@@ -129,7 +129,7 @@ function App() {
               onClick={() => sendCommand("start")}
               sx={{ ml: 2, mb: -1}}
             > 
-              🚀 Iniciar
+              Iniciar
             </Button>
 
             <Button
@@ -138,7 +138,7 @@ function App() {
               onClick={() => sendCommand("stop")}
               sx={{ ml: 2, mb: -1 }}
             >
-              🛑 Parar
+              Parar
             </Button>
           </Box>
 
@@ -155,8 +155,8 @@ function App() {
             gap={4}
             mt={4}
           >
-            <MetricChart title="Rede (bytes/s)" endpoint="/metrics/network/rx" label="rx" />
-            <MetricChart title="Rede (bytes/s)" endpoint="/metrics/network/tx" label="tx" />
+            <MetricChart title="Rede RX (bytes/s)" endpoint="/metrics/network/rx" label="rx" />
+            <MetricChart title="Rede TX (bytes/s)" endpoint="/metrics/network/tx" label="tx" />
             <MetricChart title="CPU (%)" endpoint="/metrics/cpu" label="cpu" />
             <MetricChart title="Memória (%)" endpoint="/metrics/memory" label="memory" />
           </Box>
@@ -315,7 +315,7 @@ function App() {
           )}
         </Box>
       
-        {/* 🔍 Modal de Gráfico Expandido */}
+        {/* Modal de Gráfico Expandido */}
         <FullScreenChartModal
           open={openChartModal}
           onClose={() => setOpenChartModal(false)}
@@ -323,7 +323,7 @@ function App() {
           title={selectedChartTitle}
         />
 
-      {/* 📁 Modal de Exportação */}
+      {/* Modal de Exportação */}
       <Dialog open={exportDialogOpen} onClose={() => setExportDialogOpen(false)}>
         <DialogTitle>Escolher formato de exportação</DialogTitle>
         <DialogContent>

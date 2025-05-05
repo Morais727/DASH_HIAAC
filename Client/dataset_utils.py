@@ -1,10 +1,12 @@
-import tensorflow as tf
-import numpy as np
+import os
 import random
 import pickle
-import pandas as pd
-from sklearn.preprocessing import Normalizer
 import logging
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from datasets import load_dataset
+from sklearn.preprocessing import Normalizer
 
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 
@@ -12,6 +14,50 @@ class ManageDatasets:
 
     def __init__(self, cid):
         self.cid = cid
+
+    def load_HuggingFaceDataset(self):
+        dataset_url = os.environ.get("HF_DATASET_URL", "").strip()
+        if not dataset_url:
+            raise ValueError("Variável HF_DATASET_URL não definida.")
+
+        dataset_name = dataset_url.split("/")[-1]
+        local_cache_dir = os.path.join("/mnt/fl_clients/huggingface_datasets", dataset_name.replace("/", "__"))
+        os.makedirs(local_cache_dir, exist_ok=True)
+
+        print(f"🔄 Carregando dataset Hugging Face: {dataset_url}")
+
+        try:
+            dataset = load_dataset(dataset_url, cache_dir=local_cache_dir)
+        except Exception as e:
+            print(f"❌ Erro ao carregar dataset do Hugging Face: {e}")
+            raise e
+
+        try:
+            train_data = dataset["train"]
+            test_data = dataset["test"]
+        except Exception as e:
+            raise ValueError("❌ Dataset não contém splits 'train' e 'test':", e)
+
+        def convert_split(split):
+            x = []
+            y = []
+            for example in split:
+                image = example["image"]
+                label = example["label"]
+
+                # Converte para grayscale e normaliza
+                img_array = np.array(image.convert("L"), dtype=np.float32) / 255.0
+
+                # Para DNN (usar flatten). Pode adaptar conforme o modelo
+                x.append(img_array.flatten())
+                y.append(label)
+            return np.stack(x), np.array(y)
+
+
+        x_train, y_train = convert_split(train_data)
+        x_test, y_test = convert_split(test_data)
+
+        return x_train, y_train, x_test, y_test
 
     def load_UCIHAR(self):
         with open(f'Client/data/UCI-HAR/{self.cid +1}_train.pickle', 'rb') as train_file:
@@ -174,6 +220,10 @@ class ManageDatasets:
             return self.load_ExtraSensory()
         elif dataset_name == 'UCIHAR':
             return self.load_UCIHAR()
+        elif dataset_name == 'CUSTOM_HF_DATASET':
+            return self.load_HuggingFaceDataset()
+        else:
+            raise ValueError(f"❌ Dataset não reconhecido: {dataset_name}")
 
     def normalize_data(self, x_train, x_test):
         x_train = Normalizer().fit_transform(np.array(x_train))

@@ -17,3 +17,5 @@ scikit-learn>=1.3.0
 kaleido
 scikit-learn-extra
 python-dotenv
+datasets
+transformers[tf-cpu]
