@@ -4,7 +4,7 @@
 DASHBOARD_DIR="Server/federated-dashboard"
 FLASK_SCRIPT="Server/flask-server/app.py"
 MQTT_SCRIPT="Server/flask-server/server_mqtt_listener.py"
-SYNC_SCRIPT="./sync_directories.py"
+SYNC_SCRIPT="sync_directories.py"
 SURPLUS_LISTENER="Client/surplus_mqtt_listener.py"
 PROMETHEUS_CMD="/usr/bin/prometheus"
 PROMETHEUS_CONF="Server/prometheus.yml"

@@ -21,7 +21,7 @@ class ModelCreation():
 			print(f"Baixando modelo Hugging Face: {model_name}")
 			try:
 				tokenizer = AutoTokenizer.from_pretrained(model_name)
-				model = TFAutoModel.from_pretrained(model_name)
+				model = TFAutoModel.from_pretrained(model_name, from_pt=True)
 				os.makedirs(local_dir, exist_ok=True)
 				tokenizer.save_pretrained(local_dir)
 				model.save_pretrained(local_dir)
@@ -29,13 +29,10 @@ class ModelCreation():
 				print(f"❌ Erro ao baixar modelo: {e}")
 				raise e
 
-		# Carrega modelo salvo (para garantir compatibilidade local)
-		model = TFAutoModel.from_pretrained(local_dir)
-
-		# Compila modelo com configuração genérica (o usuário pode customizar depois)
+		model = TFAutoModel.from_pretrained(local_dir, from_pt=True)
 		model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-
 		return model
+
 
 
 	def create_DNN(self, input_shape, num_classes):
